@@ -2,3 +2,8 @@
 <div>
     <pre data-ng-model="debug" data-ng-show="debug">{{ data | json }}</pre>
 </div>
+<form ng-submit="addUser()">
+  user name:
+  <input type="text" ng-model="userName" name="text" />
+  <input type="submit" id="addUser" value="addUser" />
+</form>

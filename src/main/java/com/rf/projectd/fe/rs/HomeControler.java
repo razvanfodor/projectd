@@ -5,12 +5,10 @@
  */
 package com.rf.projectd.fe.rs;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.rf.projectd.db.dao.UserAccess;
 import com.rf.projectd.fe.rs.response.Hello;
-import java.util.Set;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

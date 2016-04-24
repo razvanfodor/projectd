@@ -19,14 +19,14 @@ import javax.ws.rs.Path;
  * @author raz
  */
 @RequestScoped
-@Path("/users")
+@Path("/user")
 public class UserRS {
     @Inject
     private UserAccess userAccess;
 
     @POST
-    @Path("/add")
-    public void addUser(User user){
+    @Path("/register")
+    public void registerUser(User user){
         userAccess.persistUser(user);
     }
     

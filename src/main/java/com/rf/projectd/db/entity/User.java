@@ -18,7 +18,7 @@ public class User {
     @Id
     private ObjectId id;
     
-    private String firstName        ;
+    private String firstName;
     private String lastName;
     private String userName;
     private String email;
@@ -34,11 +34,11 @@ public class User {
         this.id = id;
     }
 
-    public String getFistName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFistName(String fistName) {
+    public void setFirstName(String fistName) {
         this.firstName = fistName;
     }
 

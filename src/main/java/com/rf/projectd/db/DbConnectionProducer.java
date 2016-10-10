@@ -41,7 +41,7 @@ public class DbConnectionProducer {
 
     @PostConstruct
     public void init() {
-        String mongoIpAddress = "localhost";
+        String mongoIpAddress = "docker";
         Integer mongoPort = 27017;
         mongo = new MongoClient(mongoIpAddress, mongoPort);
         db = mongo.getDatabase("projectD");
@@ -54,7 +54,7 @@ public class DbConnectionProducer {
 
         morphia.mapPackage("com.rf.projectd.db.entity");
 
-        datastore = morphia.createDatastore(new MongoClient(), "projectD");
+        datastore = morphia.createDatastore(mongo, "projectD");
         datastore.ensureIndexes();
     }
 }

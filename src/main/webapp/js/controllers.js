@@ -29,21 +29,3 @@ controllers.controller("HomeController", ['$scope', '$http', function ($scope, $
 
         $scope.getResults();
     }]);
-
-controllers.controller("UserRegistrationController", ['$scope', '$http', function ($scope, $http) {
-        $scope.user = {};
-        $scope.user.firstName = '';
-        $scope.user.lastName = '';
-        $scope.user.userName = '';
-        $scope.user.password = '';
-
-        $scope.registerUser = function () {
-            if ($scope.user.userName) {
-                $http.post('service/user/register', $scope.user);
-                $scope.user.firstName = '';
-                $scope.user.lastName = '';
-                $scope.user.userName = '';
-                $scope.user.password = '';
-            }
-        };
-    }]);

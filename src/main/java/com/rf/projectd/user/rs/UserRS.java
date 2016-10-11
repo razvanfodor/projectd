@@ -5,16 +5,12 @@
  */
 package com.rf.projectd.user.rs;
 
-import com.rf.projectd.user.UserAccess;
-import com.rf.projectd.user.UserAccess;
 import com.rf.projectd.user.UserBE;
 import com.rf.projectd.user.entity.User;
-import java.util.List;
+import com.rf.projectd.user.rs.response.UserPersistenceResponse;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -35,7 +31,7 @@ public class UserRS {
     @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
-    public void registerUser(User user){
-        userBe.createNewUser(user);
+    public UserPersistenceResponse registerUser(User user){
+        return userBe.createNewUser(user);
     } 
 }

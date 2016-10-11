@@ -7,7 +7,7 @@ package com.rf.projectd.fe.rs;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.rf.projectd.db.dao.UserAccess;
+import com.rf.projectd.user.UserAccess;
 import com.rf.projectd.fe.rs.response.Hello;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

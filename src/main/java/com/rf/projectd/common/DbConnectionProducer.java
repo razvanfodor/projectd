@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rf.projectd.db;
+package com.rf.projectd.common;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;

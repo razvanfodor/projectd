@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rf.projectd.db.entity;
+package com.rf.projectd.user.entity;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;

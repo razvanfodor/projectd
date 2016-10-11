@@ -15,7 +15,7 @@ app.config(['$routeProvider',
                     controller: 'HomeController'
                 })
                 .when('/registerUser', {
-                    templateUrl: 'partials/registerUser.html',
+                    templateUrl: 'views/registerUser/registerUser.html',
                     controller: 'UserRegistrationController'
                 })
                 .otherwise({

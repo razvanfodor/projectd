@@ -39,7 +39,11 @@ controllers.controller("UserRegistrationController", ['$scope', '$http', functio
 
         $scope.registerUser = function () {
             if ($scope.user.userName) {
-                $http.post('service/user/register', $scope.user)
+                $http.post('service/user/register', $scope.user);
+                $scope.user.firstName = '';
+                $scope.user.lastName = '';
+                $scope.user.userName = '';
+                $scope.user.password = '';
             }
         };
     }]);

@@ -15,7 +15,10 @@ app.controller("LoginController", function ($scope, $http, WebService) {
 
         function login() {
             if ($scope.user.userName && $scope.user.password) {
-                WebService.post('authentication/login', $scope.user);
+                WebService.post('authentication/login', $scope.user)
+                        .then(function(data){
+                            window.sessionStorage.setItem('projectD.authToken', data.authToken);
+                        });
             }
         };
         

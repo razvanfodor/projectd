@@ -6,6 +6,7 @@ app.factory('WebService', function ($http, $q) {
      * Base path of the application. Will always end with a '/'.
      */
     var BASE_PATH = detectBasePath();
+    var AUTH_TOKEN_SESSION_KEY = 'projectD.authToken';
 
     function detectBasePath(){
         var path = window.location.pathname;
@@ -76,6 +77,11 @@ app.factory('WebService', function ($http, $q) {
 
         if(config.data !== undefined){
             $httpConfig.data = config.data;
+        }
+        
+        var authToken = window.sessionStorage.getItem(AUTH_TOKEN_SESSION_KEY);
+        if (authToken !== null){
+            $httpConfig.headers = {'auth_token' : authToken}
         }
 
         $http($httpConfig)
@@ -158,7 +164,7 @@ app.factory('WebService', function ($http, $q) {
 
         return object;
     }
-
+    
     return {
         get: get,
         post: post,

@@ -1,23 +1,32 @@
-app.controller("UserRegistrationController", function ($scope, $http) {
+/* global app */
 
-        function main() {
-            initScope();
+app.controller("UserRegistrationController", function ($scope, WebService) {
+
+    function main() {
+        initScope();
+    }
+
+    function initScope() {
+        $scope.user = {};
+        $scope.user.firstName = '';
+        $scope.user.lastName = '';
+        $scope.user.userName = '';
+        $scope.user.password = '';
+        $scope.registerUser = registerUser;
+    }
+
+    function registerUser() {
+        if ($scope.user.userName) {
+            WebService.post('user/register', $scope.user, {})
+                    .then(function () {
+                        $scope.user.firstName = '';
+                        $scope.user.lastName = '';
+                        $scope.user.userName = '';
+                        $scope.user.password = '';
+                    });
         }
+    }
+    ;
 
-        function initScope() {
-            $scope.user = {};
-            $scope.user.firstName = '';
-            $scope.user.lastName = '';
-            $scope.user.userName = '';
-            $scope.user.password = '';
-            $scope.registerUser = registerUser;
-        }
-
-        function registerUser() {
-            if ($scope.user.userName) {
-                $http.post('service/user/register', $scope.user);
-            }
-        };
-        
-        main();
+    main();
 });

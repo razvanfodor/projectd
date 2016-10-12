@@ -1,4 +1,6 @@
-app.controller("LoginController", function ($scope, $http) {
+/* global app */
+
+app.controller("LoginController", function ($scope, $http, WebService) {
 
         function main() {
             initScope();
@@ -13,7 +15,7 @@ app.controller("LoginController", function ($scope, $http) {
 
         function login() {
             if ($scope.user.userName && $scope.user.password) {
-                $http.post('service/authentication/login', $scope.user);
+                WebService.post('authentication/login', $scope.user);
             }
         };
         

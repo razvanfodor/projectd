@@ -20,6 +20,10 @@ app.config(['$routeProvider',
                     templateUrl: 'views/login/login.html',
                     controller: 'LoginController'
                 })
+                .when('/newDiscount', {
+                    templateUrl: 'views/newDiscount/NewDiscount.html',
+                    controller: 'NewDiscountController'
+                })
                 .otherwise({
                     redirectTo: '/'
                 });

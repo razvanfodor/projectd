@@ -14,13 +14,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="#/welcome">Home</a>
                 </li>
                 <li>
-                    <a href="#/login">Log in</a>
+                    <a ng-if="!sessionStorage.authToken" href="#/login">Log in</a>
                 </li>
                 <li>
-                    <a href="#/registerUser">Sing up</a>
+                    <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
+                </li>
+                <li>
+                    <a ng-if="!sessionStorage.authToken" href="#/registerUser">Sing up</a>
                 </li>
             </ul>
         </div>

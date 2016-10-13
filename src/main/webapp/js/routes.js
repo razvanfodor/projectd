@@ -8,6 +8,10 @@ app.config(['$routeProvider',
                     templateUrl: 'views/welcome/welcome.html',
                     controller: 'WelcomeController'
                 })
+                .when('/welcome', {
+                    templateUrl: 'views/welcome/welcome.html',
+                    controller: 'WelcomeController'
+                })
                 .when('/registerUser', {
                     templateUrl: 'views/registerUser/registerUser.html',
                     controller: 'UserRegistrationController'

@@ -1,13 +1,12 @@
 /* global app */
     
-app.factory('WebService', function ($http, $q) {
+app.factory('WebService', function ($http, $q, $sessionStorage) {
     
     /**
      * Base path of the application. Will always end with a '/'.
      */
     var BASE_PATH = detectBasePath();
-    var AUTH_TOKEN_SESSION_KEY = 'projectD.authToken';
-
+    
     function detectBasePath(){
         var path = window.location.pathname;
 
@@ -79,9 +78,9 @@ app.factory('WebService', function ($http, $q) {
             $httpConfig.data = config.data;
         }
         
-        var authToken = window.sessionStorage.getItem(AUTH_TOKEN_SESSION_KEY);
+        var authToken = $sessionStorage.authToken;
         if (authToken !== null){
-            $httpConfig.headers = {'auth_token' : authToken}
+            $httpConfig.headers = {'auth_token' : authToken};
         }
 
         $http($httpConfig)

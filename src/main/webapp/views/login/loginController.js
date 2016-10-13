@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("LoginController", function ($scope, $http, WebService) {
+app.controller("LoginController", function ($scope, $location, $sessionStorage, WebService) {
 
         function main() {
             initScope();
@@ -17,7 +17,8 @@ app.controller("LoginController", function ($scope, $http, WebService) {
             if ($scope.user.userName && $scope.user.password) {
                 WebService.post('authentication/login', $scope.user)
                         .then(function(data){
-                            window.sessionStorage.setItem('projectD.authToken', data.authToken);
+                            $sessionStorage.authToken = data.authToken;
+                            $location.path('/welcome');
                         });
             }
         };

@@ -1,11 +1,16 @@
-app.controller('NavbarController', function ($scope) {    
+app.controller('NavbarController', function ($scope, $sessionStorage) {    
     function main() {
         initScope();
     }
 
     function initScope() {
-      
+      $scope.sessionStorage = $sessionStorage;
+      $scope.logout = logout;
     }
     
-    main();
+    function logout(){
+        delete $sessionStorage.authToken;
+    }
+    
+    main();    
 });

@@ -27,8 +27,7 @@ app.controller("UserRegistrationController", function ($scope, WebService) {
                         $scope.user.password = '';
                     });
         }
-    }
-    ;
+    };
 
     main();
 });

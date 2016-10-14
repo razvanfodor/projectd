@@ -24,6 +24,7 @@
     "angular-mocks": "1.3.0-beta.14",
     "angular-route": "1.3.0-beta.14",
     "components-font-awesome": "^4.6.3",
-    "ngstorage" : "*"
+    "ngstorage" : "*",
+    "angular-smart-table" : "*"
   }
 }

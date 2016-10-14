@@ -5,16 +5,20 @@
  */
 package com.rf.projectd.discount.rs;
 
+import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
 import com.rf.projectd.user.UserContext;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -30,6 +34,9 @@ public class Discount {
     @Inject
     private UserContext userContext;
     
+    @Inject
+    private RestResponseService responseService;
+    
     @POST
     @Path("/saveNew")
     @Produces(MediaType.APPLICATION_JSON)
@@ -37,5 +44,14 @@ public class Discount {
     public void saveNew(DiscountEntity discount){
         discount.setUserId(userContext.getLoggedInUser().getId());
         discountAccess.save(discount);
+    }
+    
+    @GET
+    @Path("/getAll")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getForUser(){
+        final List<DiscountEntity> discounts = discountAccess.getAllForUser(userContext.getLoggedInUser().getId());
+        
+        return responseService.ok(discounts);
     }
 }

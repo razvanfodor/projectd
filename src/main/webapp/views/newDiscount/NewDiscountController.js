@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller('NewDiscountController', function ($scope, WebService) {
+app.controller('NewDiscountController', function ($scope, $location, WebService) {
     function main() {
         initScope();
     }
@@ -10,7 +10,7 @@ app.controller('NewDiscountController', function ($scope, WebService) {
         $scope.website = '';
         $scope.code = '';
         $scope.price = '';
-        
+
         $scope.saveDiscount = saveDiscount;
     }
 
@@ -23,10 +23,7 @@ app.controller('NewDiscountController', function ($scope, WebService) {
         };
         WebService.post('discount/saveNew', discount)
                 .then(function () {
-                    $scope.discountName = '';
-                    $scope.website = '';
-                    $scope.code = '';
-                    $scope.price = '';
+                    $location.path('/viewMyDiscounts');
                 });
     }
 

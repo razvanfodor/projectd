@@ -1,5 +1,9 @@
 {
-    "attributes": {},
+    "attributes": {
+        "st-table": {
+            "context": "table"
+        }
+    },
     "elements": {
         "navbar": {}
     }

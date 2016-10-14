@@ -7,6 +7,7 @@ package com.rf.projectd.discount.rs;
 
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
+import com.rf.projectd.user.UserContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -26,11 +27,15 @@ public class Discount {
     @Inject
     private DiscountAccess discountAccess;
     
+    @Inject
+    private UserContext userContext;
+    
     @POST
     @Path("/saveNew")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
     public void saveNew(DiscountEntity discount){
+        discount.setUserId(userContext.getLoggedInUser().getId());
         discountAccess.save(discount);
     }
 }

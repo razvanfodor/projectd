@@ -11,6 +11,7 @@ app.controller("UserRegistrationController", function ($scope, WebService) {
         $scope.user.firstName = '';
         $scope.user.lastName = '';
         $scope.user.userName = '';
+        $scope.user.email = '';
         $scope.user.password = '';
         $scope.registerUser = registerUser;
     }
@@ -22,6 +23,7 @@ app.controller("UserRegistrationController", function ($scope, WebService) {
                         $scope.user.firstName = '';
                         $scope.user.lastName = '';
                         $scope.user.userName = '';
+                        $scope.user.email = '';
                         $scope.user.password = '';
                     });
         }

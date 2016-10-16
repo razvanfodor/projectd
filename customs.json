@@ -1,10 +1,11 @@
 {
+    "elements": {
+        "search": {},
+        "navbar": {}
+    },
     "attributes": {
         "st-table": {
             "context": "table"
         }
-    },
-    "elements": {
-        "navbar": {}
     }
 }

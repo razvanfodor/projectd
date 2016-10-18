@@ -16,7 +16,9 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -51,6 +53,15 @@ public class Discount {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getForUser(){
         final List<DiscountEntity> discounts = discountAccess.getAllForUser(userContext.getLoggedInUser().getId());
+        
+        return responseService.ok(discounts);
+    }
+    
+    @GET
+    @Path("/search")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchs(@QueryParam("searchValue") String searchValue){
+        final List<DiscountEntity> discounts = discountAccess.search(searchValue, userContext.getLoggedInUser().getId());
         
         return responseService.ok(discounts);
     }

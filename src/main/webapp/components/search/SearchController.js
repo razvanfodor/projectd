@@ -1,18 +1,15 @@
-app.controller('SearchController', function ($scope, WebService) {
+app.controller('SearchController', function ($scope, $location) {
     function main() {
         initScope();
     }
 
     function initScope() {
         $scope.searchTerm = '';
-        $scope.loadHints = loadHints;
+        $scope.search = search;
     }
 
-    function loadHints(searchVal) {
-        return WebService.get('search/getHints', {searchValue: searchVal})
-                .then(function (results) {
-                    return results;
-                });
+    function search() {
+        $location.path('displaySearchResults').search("searchTerm="+$scope.searchTerm);
     }
 
     main();

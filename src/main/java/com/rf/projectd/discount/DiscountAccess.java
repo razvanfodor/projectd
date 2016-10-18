@@ -10,17 +10,17 @@ import java.util.List;
 import javax.inject.Inject;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 
 /**
  *
  * @author XFODOR
  */
 public class DiscountAccess {
-    
+
     @Inject
     private Datastore ds;
 
-   
     public void save(DiscountEntity discount) {
         ds.save(discount);
     }
@@ -30,6 +30,15 @@ public class DiscountAccess {
                 .field("userId")
                 .equal(id)
                 .asList();
-                
+
+    }
+
+    public List<DiscountEntity> search(String searchValue, ObjectId id) {
+        final Query<DiscountEntity> query = ds.createQuery(DiscountEntity.class);
+        query.and(query.criteria("userId").notEqual(id), 
+                query.or(query.criteria("discountName").containsIgnoreCase(searchValue),
+                        query.criteria("website").containsIgnoreCase(searchValue)));
+
+        return query.asList();
     }
 }

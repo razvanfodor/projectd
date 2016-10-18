@@ -1,5 +1,3 @@
-<!--angular ui typeahead-->
-
-<input type="text" ng-model="searchTerm" placeholder="Search a discount" uib-typeahead="hint for hint in getHints($viewValue)"
-       typeahead-loading="loadingHints" class="form-control">
-<i ng-show="loadingHints" class="glyphicon glyphicon-refresh"></i>
+<form ng-submit="search()">
+    <input type="text" ng-model="searchTerm" placeholder="Search a discount" class="form-control">
+</form>

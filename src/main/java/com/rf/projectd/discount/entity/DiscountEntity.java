@@ -7,6 +7,7 @@ package com.rf.projectd.discount.entity;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 /**
  *
@@ -14,6 +15,9 @@ import org.mongodb.morphia.annotations.Entity;
  */
 @Entity("discounts")
 public class DiscountEntity {
+    
+    @Id
+    private ObjectId id;
     
     private String discountName;
 
@@ -83,4 +87,8 @@ public class DiscountEntity {
     public ObjectId getUserId() {
         return userId;
     }
+
+    public ObjectId getId() {
+        return id;
+    } 
 }

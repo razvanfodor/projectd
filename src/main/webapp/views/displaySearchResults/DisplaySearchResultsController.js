@@ -1,9 +1,9 @@
 /* global app */
 
-app.controller("DisplaySearchResultsController", function ($scope, $routeParams, WebService) {
+app.controller("DisplaySearchResultsController", function ($scope, $routeParams, $location, WebService) {
 
         function main() {
-            initScope();
+            initScope();            
         }
 
         function initScope() {
@@ -12,6 +12,12 @@ app.controller("DisplaySearchResultsController", function ($scope, $routeParams,
                     .then(function(data){
                        $scope.discounts = data;
                     });
+                    
+            $scope.buy = buy;
+        }
+        
+        function buy(discountId){
+            $location.path('discountDetails').search("did="+discountId);
         }
         
         main();

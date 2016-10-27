@@ -41,4 +41,8 @@ public class DiscountAccess {
 
         return query.asList();
     }
+
+    public DiscountEntity getById(String discountId) {
+        return ds.get(DiscountEntity.class, new ObjectId(discountId));
+    }
 }

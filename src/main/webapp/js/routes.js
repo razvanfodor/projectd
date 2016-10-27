@@ -32,6 +32,10 @@ app.config(['$routeProvider',
                     templateUrl: 'views/displaySearchResults/DisplaySearchResults.html',
                     controller: 'DisplaySearchResultsController'
                 })
+                .when('/discountDetails', {
+                    templateUrl: 'views/discountDetails/DiscountDetails.html',
+                    controller: 'DiscountDetailsController'
+                })
                 .otherwise({
                     redirectTo: '/'
                 });

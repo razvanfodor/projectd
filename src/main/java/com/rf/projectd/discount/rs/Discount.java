@@ -8,8 +8,11 @@ package com.rf.projectd.discount.rs;
 import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
+import com.rf.projectd.discount.rs.response.DiscountResponse;
 import com.rf.projectd.user.UserContext;
+import com.rf.projectd.user.entity.User;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -62,7 +65,17 @@ public class Discount {
     @Produces(MediaType.APPLICATION_JSON)
     public Response searchs(@QueryParam("searchValue") String searchValue){
         final List<DiscountEntity> discounts = discountAccess.search(searchValue, userContext.getLoggedInUser().getId());
-        
-        return responseService.ok(discounts);
+        List responses = discounts.stream()
+                .map(s -> new DiscountResponse(s))
+                .collect(Collectors.toList());
+        return responseService.ok(responses);
+    }
+    @GET
+    @Path("/details")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDetails(@QueryParam("did") String discountId){
+        final DiscountEntity discount = discountAccess.getById(discountId);
+        final DiscountResponse response = new DiscountResponse(discount);
+        return responseService.ok(response);
     }
 }

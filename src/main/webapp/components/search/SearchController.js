@@ -1,11 +1,12 @@
-app.controller('SearchController', function ($scope, $location) {
+app.controller('SearchController', function ($scope, $location, $sessionStorage) {
     function main() {
         initScope();
     }
 
     function initScope() {
         $scope.searchTerm = '';
-        $scope.search = search;
+        $scope.sessionStorage = $sessionStorage;
+        $scope.search = search;        
     }
 
     function search() {

@@ -9,9 +9,12 @@ import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
 import com.rf.projectd.discount.rs.response.DiscountResponse;
+import com.rf.projectd.user.UserBE;
 import com.rf.projectd.user.UserContext;
 import com.rf.projectd.user.entity.User;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -32,50 +35,57 @@ import javax.ws.rs.core.Response;
 @Stateless
 @Path("/discount")
 public class Discount {
-    
+
     @Inject
     private DiscountAccess discountAccess;
-    
+
     @Inject
     private UserContext userContext;
-    
+
     @Inject
     private RestResponseService responseService;
-    
+
+    @Inject
+    private UserBE userBe;
+
     @POST
     @Path("/saveNew")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
-    public void saveNew(DiscountEntity discount){
+    public void saveNew(DiscountEntity discount) {
         discount.setUserId(userContext.getLoggedInUser().getId());
         discountAccess.save(discount);
     }
-    
+
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getForUser(){
+    public Response getForUser() {
         final List<DiscountEntity> discounts = discountAccess.getAllForUser(userContext.getLoggedInUser().getId());
-        
+
         return responseService.ok(discounts);
     }
-    
+
     @GET
     @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response searchs(@QueryParam("searchValue") String searchValue){
+    public Response searchs(@QueryParam("searchValue") String searchValue) {
         final List<DiscountEntity> discounts = discountAccess.search(searchValue, userContext.getLoggedInUser().getId());
-        List responses = discounts.stream()
-                .map(s -> new DiscountResponse(s))
-                .collect(Collectors.toList());
+        List<DiscountResponse> responses = new ArrayList(discounts.size());
+        for (DiscountEntity discount : discounts) {
+            User user = userBe.getUserById(discount.getUserId());
+            responses.add(new DiscountResponse(discount, user));
+        }
         return responseService.ok(responses);
     }
+
     @GET
     @Path("/details")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDetails(@QueryParam("did") String discountId){
+    public Response getDetails(@QueryParam("did") String discountId) {
         final DiscountEntity discount = discountAccess.getById(discountId);
-        final DiscountResponse response = new DiscountResponse(discount);
+        User user = userBe.getUserById(discount.getUserId());
+        final DiscountResponse response = new DiscountResponse(discount, user);
         return responseService.ok(response);
     }
 }

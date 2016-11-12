@@ -6,6 +6,7 @@
 package com.rf.projectd.discount.rs.response;
 
 import com.rf.projectd.discount.entity.DiscountEntity;
+import com.rf.projectd.user.entity.User;
 
 /**
  *
@@ -18,12 +19,14 @@ public class DiscountResponse {
     private String discountName;
     private String website;
     private Long price;
+    private String userName;
     
-    public DiscountResponse(DiscountEntity discount) {
+    public DiscountResponse(DiscountEntity discount, User user) {
        this.id = discount.getId().toString();
        this.discountName = discount.getDiscountName();
        this.website = discount.getWebsite();       
        this.price = discount.getPrice();
+       this.userName = user.getUserName();
     }
 
     public String getId() {
@@ -40,5 +43,13 @@ public class DiscountResponse {
 
     public Long getPrice() {
         return price;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

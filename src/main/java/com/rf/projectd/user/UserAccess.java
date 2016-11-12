@@ -8,6 +8,7 @@ package com.rf.projectd.user;
 import com.rf.projectd.user.entity.User;
 import java.util.List;
 import javax.inject.Inject;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
 /**
@@ -32,5 +33,9 @@ public class UserAccess {
                 .field("userName")
                 .equalIgnoreCase(userName)
                 .get();
+    }
+
+    User getuserById(ObjectId userId) {
+        return ds.get(User.class, userId);
     }
 }

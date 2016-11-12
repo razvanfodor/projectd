@@ -8,6 +8,7 @@ package com.rf.projectd.user;
 import com.rf.projectd.user.entity.User;
 import com.rf.projectd.user.rs.response.UserPersistenceResponse;
 import javax.inject.Inject;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -30,5 +31,9 @@ public class UserBE {
             response.setErrorMessage("User already exists!");
         }
         return response;
+    }
+
+    public User getUserById(ObjectId userId) {
+        return userAccess.getuserById(userId);
     }
 }

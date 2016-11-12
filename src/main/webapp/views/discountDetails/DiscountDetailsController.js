@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("DiscountDetailsController", function ($scope, $routeParams, WebService) {
+app.controller("DiscountDetailsController", function ($scope, $routeParams, $location, WebService) {
 
     function main() {
         initScope();
@@ -17,7 +17,7 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, WebS
     }
 
     function buyDiscount() {
-//            $location.path('discountDetails').search("did="+discountId);
+//            $location.path('discountDetails').search("did="+$routeParams.did);
     }
     
     main();

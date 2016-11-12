@@ -22,9 +22,10 @@
     "angular": "1.3.0-beta.14",
     "bootstrap": "^3.3.6",
     "angular-mocks": "1.3.0-beta.14",
-    "angular-route": "1.3.0-beta.14",
+    "angular-route": "*",
     "components-font-awesome": "^4.6.3",
     "ngstorage" : "*",
-    "angular-smart-table" : "*"
+    "angular-smart-table" : "*",
+    "angular-bootstrap" : "*"
   }
 }

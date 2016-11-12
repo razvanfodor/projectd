@@ -14,6 +14,7 @@ import javax.inject.Inject;
  * @author XFODOR
  */
 public class UserBE {
+    private static final long DEFAULT_D_POINTS = 20L;
     
     @Inject
     private UserAccess userAccess;
@@ -23,6 +24,7 @@ public class UserBE {
         
         final UserPersistenceResponse response = new UserPersistenceResponse();
         if (foundUser == null) {
+            user.setdPoints(DEFAULT_D_POINTS);
             userAccess.persistUser(user);
         } else {
             response.setErrorMessage("User already exists!");

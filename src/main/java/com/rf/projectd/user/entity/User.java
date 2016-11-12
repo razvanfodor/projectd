@@ -22,6 +22,7 @@ public class User {
     private String lastName;
     private String userName;
     private String email;
+    private Long dPoints;
     
     //TODO this has to be encrypted
     private String password;
@@ -72,6 +73,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }       
+
+    public Long getdPoints() {
+        return dPoints;
+    }
+
+    public void setdPoints(Long dPoints) {
+        this.dPoints = dPoints;
     }
 }
  

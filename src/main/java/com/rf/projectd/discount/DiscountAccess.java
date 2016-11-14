@@ -27,7 +27,7 @@ public class DiscountAccess {
 
     public List<DiscountEntity> getAllForUser(ObjectId id) {
         return ds.createQuery(DiscountEntity.class)
-                .field("userId")
+                .field("creatorId")
                 .equal(id)
                 .asList();
 
@@ -35,7 +35,7 @@ public class DiscountAccess {
 
     public List<DiscountEntity> search(String searchValue, ObjectId userId) {
         final Query<DiscountEntity> query = ds.createQuery(DiscountEntity.class);
-        query.and(query.criteria("userId").notEqual(userId), 
+        query.and(query.criteria("creatorId").notEqual(userId), 
                 query.or(query.criteria("discountName").containsIgnoreCase(searchValue),
                         query.criteria("website").containsIgnoreCase(searchValue)));
 

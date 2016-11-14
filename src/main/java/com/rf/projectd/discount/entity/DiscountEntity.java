@@ -5,6 +5,8 @@
  */
 package com.rf.projectd.discount.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -14,7 +16,7 @@ import org.mongodb.morphia.annotations.Id;
  * @author XFODOR
  */
 @Entity("discounts")
-public class DiscountEntity {
+public class DiscountEntity implements Cloneable {
     
     @Id
     private ObjectId id;
@@ -24,7 +26,8 @@ public class DiscountEntity {
     private String website;
     private String code;
     private Long price;
-    private ObjectId userId;
+    private ObjectId creatorId;
+    private List<ObjectId> buyers;
 
     public String getCode() {
         return code;
@@ -42,7 +45,6 @@ public class DiscountEntity {
         this.price = price;
     }
 
-    
     /**
      * Get the value of website
      *
@@ -60,7 +62,6 @@ public class DiscountEntity {
     public void setWebsite(String website) {
         this.website = website;
     }
-
     
     /**
      * Get the value of discountName
@@ -80,15 +81,36 @@ public class DiscountEntity {
         this.discountName = discountName;
     }
 
-    public void setUserId(ObjectId id) {
-        this.userId = id;
+    public void setCreatorId(ObjectId id) {
+        this.creatorId = id;
     }
 
-    public ObjectId getUserId() {
-        return userId;
+    public ObjectId getCreatorId() {
+        return creatorId;
     }
 
     public ObjectId getId() {
         return id;
     } 
+
+    public DiscountEntity cloneDetached(){
+        final DiscountEntity discount = new DiscountEntity();
+        
+        this.setCode(discount.getCode());
+        this.setDiscountName(discount.getDiscountName());
+        this.setWebsite(discount.getWebsite());
+        this.setPrice(discount.getPrice());
+        this.setCreatorId(discount.getCreatorId());
+        
+        return discount;
+    }
+
+    public List<ObjectId> getBuyers() {
+        if (buyers == null){
+            buyers = new ArrayList<>();
+        }
+        return buyers;
+    }
+
 }
+    

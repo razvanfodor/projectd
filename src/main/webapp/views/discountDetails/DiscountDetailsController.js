@@ -17,7 +17,10 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, $loc
     }
 
     function buyDiscount() {
-//            $location.path('discountDetails').search("did="+$routeParams.did);
+        WebService.put("discount/buy", $routeParams.did)
+                .then(function () {
+                    $location.path('discountDetails').search("did=" + $routeParams.did);
+                });
     }
     
     main();

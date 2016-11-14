@@ -20,7 +20,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.PUT;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -53,10 +55,10 @@ public class Discount {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
     public void saveNew(DiscountEntity discount) {
-        discount.setUserId(userContext.getLoggedInUser().getId());
+        discount.setCreatorId(userContext.getLoggedInUser().getId());
         discountAccess.save(discount);
     }
-
+    
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,7 +75,7 @@ public class Discount {
         final List<DiscountEntity> discounts = discountAccess.search(searchValue, userContext.getLoggedInUser().getId());
         List<DiscountResponse> responses = new ArrayList(discounts.size());
         for (DiscountEntity discount : discounts) {
-            User user = userBe.getUserById(discount.getUserId());
+            User user = userBe.getUserById(discount.getCreatorId());
             responses.add(new DiscountResponse(discount, user));
         }
         return responseService.ok(responses);
@@ -84,8 +86,34 @@ public class Discount {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDetails(@QueryParam("did") String discountId) {
         final DiscountEntity discount = discountAccess.getById(discountId);
-        User user = userBe.getUserById(discount.getUserId());
+        User user = userBe.getUserById(discount.getCreatorId());
         final DiscountResponse response = new DiscountResponse(discount, user);
         return responseService.ok(response);
+    }
+    
+    @PUT
+    @Path("/buy")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buyDiscount(String discountId) {
+        final DiscountEntity discount = discountAccess.getById(discountId);
+        User buyer = userContext.getLoggedInUser();
+        if (buyer.getdPoints() < discount.getPrice()){
+            throw new RuntimeException("Insuficient fonds.");
+        }
+        
+        User seller = userBe.getUserById(discount.getCreatorId());
+        final Long sellerPoints = seller.getdPoints() + discount.getPrice();
+        seller.setdPoints(sellerPoints);
+        
+        Long userPoints = buyer.getdPoints() - discount.getPrice();
+        buyer.setdPoints(userPoints);
+        
+        discount.getBuyers().add(buyer.getId());
+        
+        discountAccess.save(discount);
+        userBe.persistUser(seller);
+        userBe.persistUser(buyer);
+                
+        return responseService.ok(null);
     }
 }

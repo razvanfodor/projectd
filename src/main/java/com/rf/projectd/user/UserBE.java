@@ -36,4 +36,8 @@ public class UserBE {
     public User getUserById(ObjectId userId) {
         return userAccess.getuserById(userId);
     }
+    
+    public void persistUser(User user){
+        userAccess.persistUser(user);
+    }
 }

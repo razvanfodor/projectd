@@ -9,6 +9,7 @@ import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
 import com.rf.projectd.discount.rs.response.DiscountResponse;
+import com.rf.projectd.discount.rs.response.DiscountType;
 import com.rf.projectd.user.UserBE;
 import com.rf.projectd.user.UserContext;
 import com.rf.projectd.user.entity.User;
@@ -29,6 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -58,7 +60,7 @@ public class Discount {
         discount.setCreatorId(userContext.getLoggedInUser().getId());
         discountAccess.save(discount);
     }
-    
+
     @GET
     @Path("/getAll")
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,32 +90,47 @@ public class Discount {
         final DiscountEntity discount = discountAccess.getById(discountId);
         User user = userBe.getUserById(discount.getCreatorId());
         final DiscountResponse response = new DiscountResponse(discount, user);
+        final User currentUser = userContext.getLoggedInUser();
+
+        if (currentUser.equals(user)) {
+            response.setType(DiscountType.OWNED);
+            response.setCode(discount.getCode());
+        } else if (isBuyer(currentUser, discount)) {
+            response.setType(DiscountType.BOUGHT);
+            response.setCode(discount.getCode());
+        } else {
+            response.setType(DiscountType.SELL);
+        }
         return responseService.ok(response);
     }
-    
+
     @PUT
     @Path("/buy")
     @Produces(MediaType.APPLICATION_JSON)
     public Response buyDiscount(String discountId) {
         final DiscountEntity discount = discountAccess.getById(discountId);
         User buyer = userContext.getLoggedInUser();
-        if (buyer.getdPoints() < discount.getPrice()){
+        if (buyer.getdPoints() < discount.getPrice()) {
             throw new RuntimeException("Insuficient fonds.");
         }
-        
+
         User seller = userBe.getUserById(discount.getCreatorId());
         final Long sellerPoints = seller.getdPoints() + discount.getPrice();
         seller.setdPoints(sellerPoints);
-        
+
         Long userPoints = buyer.getdPoints() - discount.getPrice();
         buyer.setdPoints(userPoints);
-        
+
         discount.getBuyers().add(buyer.getId());
-        
+
         discountAccess.save(discount);
         userBe.persistUser(seller);
         userBe.persistUser(buyer);
-                
+
         return responseService.ok(null);
+    }
+
+    private boolean isBuyer(User user, DiscountEntity discount) {
+        return discount.getBuyers().contains(user.getId());
     }
 }

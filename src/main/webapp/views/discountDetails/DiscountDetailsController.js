@@ -8,18 +8,21 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, $loc
 
     function initScope() {
         $scope.discount = {};
+        refreshDiscount();
+        $scope.buyDiscount = buyDiscount;
+    }
+    
+    function refreshDiscount(){
         WebService.get("discount/details", {"did": $routeParams.did})
                 .then(function (data) {
                     $scope.discount = data;
                 });
-
-        $scope.buyDiscount = buyDiscount;
     }
 
     function buyDiscount() {
         WebService.put("discount/buy", $routeParams.did)
                 .then(function () {
-                    $location.path('discountDetails').search("did=" + $routeParams.did);
+                    refreshDiscount();
                 });
     }
     

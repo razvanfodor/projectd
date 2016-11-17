@@ -21,7 +21,7 @@
                     {{discount.website}}
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="discount.type=='OWNED' || discount.type=='SELL'">
                 <div class="col-sm-4">
                     <label class="col-sm-2 control-label">Price</label>
                 </div>
@@ -29,7 +29,15 @@
                     {{discount.price}}                        
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="discount.type=='BOUGHT'">
+                <div class="col-sm-4">
+                    <label class="col-sm-2 control-label">Code</label>
+                </div>
+                <div class="col-sm-8">
+                    {{discount.code}}
+                </div>
+            </div>
+            <div class="row" ng-if="discount.type == 'SELL'"    >
                 <div class="col-sm-offset-4 col-sm-12">
                     <button type="button" class="btn btn-default" id="buyDiscountButton" data-toggle="modal" data-target="#buyModal">Buy!</button>
                 </div>
@@ -53,7 +61,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-ng-click="buyDiscount()">Buy</button>
+                <button type="button" class="btn btn-primary" data-ng-click="buyDiscount()" data-dismiss="modal">Buy</button>
             </div>
         </div>
     </div>

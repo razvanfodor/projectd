@@ -20,6 +20,9 @@ public class DiscountResponse {
     private String website;
     private Long price;
     private String userName;
+    private DiscountType type = DiscountType.SELL;
+    private String code;
+    
     
     public DiscountResponse(DiscountEntity discount, User user) {
        this.id = discount.getId().toString();
@@ -51,5 +54,21 @@ public class DiscountResponse {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public DiscountType getType() {
+        return type;
+    }
+
+    public void setType(DiscountType type) {
+        this.type = type;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

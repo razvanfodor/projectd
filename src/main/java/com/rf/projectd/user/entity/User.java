@@ -5,6 +5,7 @@
  */
 package com.rf.projectd.user.entity;
 
+import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -81,6 +82,30 @@ public class User {
 
     public void setdPoints(Long dPoints) {
         this.dPoints = dPoints;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        if (id != null ){
+            hash += id.hashCode();
+        }
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 }
  

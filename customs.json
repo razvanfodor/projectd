@@ -1,7 +1,8 @@
 {
     "elements": {
         "search": {},
-        "navbar": {}
+        "navbar": {},
+        "discount-list": {}
     },
     "attributes": {
         "st-table": {

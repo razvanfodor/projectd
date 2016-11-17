@@ -15,22 +15,17 @@ import com.rf.projectd.user.UserContext;
 import com.rf.projectd.user.entity.User;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import static javax.ws.rs.HttpMethod.PUT;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -62,24 +57,27 @@ public class Discount {
     }
 
     @GET
-    @Path("/getAll")
+    @Path("/getMy")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getForUser() {
-        final List<DiscountEntity> discounts = discountAccess.getAllForUser(userContext.getLoggedInUser().getId());
+    public Response getCreatedByUser() {
+        final List<DiscountEntity> discounts = discountAccess.getCreatedBy(userContext.getLoggedInUser().getId());
+        return responseService.ok(transformToDiscountResponses(discounts));
+    }
 
-        return responseService.ok(discounts);
+    @GET
+    @Path("/getBought")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBoughtByUser() {
+        final List<DiscountEntity> discounts = discountAccess.getBoughtBy(userContext.getLoggedInUser().getId());
+        return responseService.ok(transformToDiscountResponses(discounts));
     }
 
     @GET
     @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response searchs(@QueryParam("searchValue") String searchValue) {
+    public Response search(@QueryParam("searchValue") String searchValue) {
         final List<DiscountEntity> discounts = discountAccess.search(searchValue, userContext.getLoggedInUser().getId());
-        List<DiscountResponse> responses = new ArrayList(discounts.size());
-        for (DiscountEntity discount : discounts) {
-            User user = userBe.getUserById(discount.getCreatorId());
-            responses.add(new DiscountResponse(discount, user));
-        }
+        List<DiscountResponse> responses = transformToDiscountResponses(discounts);
         return responseService.ok(responses);
     }
 
@@ -132,5 +130,14 @@ public class Discount {
 
     private boolean isBuyer(User user, DiscountEntity discount) {
         return discount.getBuyers().contains(user.getId());
+    }
+
+    private List<DiscountResponse> transformToDiscountResponses(final List<DiscountEntity> discounts) {
+        List<DiscountResponse> responses = new ArrayList(discounts.size());
+        for (DiscountEntity discount : discounts) {
+            User user = userBe.getUserById(discount.getCreatorId());
+            responses.add(new DiscountResponse(discount, user));
+        }
+        return responses;
     }
 }

@@ -25,7 +25,7 @@ public class DiscountAccess {
         ds.save(discount);
     }
 
-    public List<DiscountEntity> getAllForUser(ObjectId id) {
+    public List<DiscountEntity> getCreatedBy(ObjectId id) {
         return ds.createQuery(DiscountEntity.class)
                 .field("creatorId")
                 .equal(id)
@@ -44,5 +44,12 @@ public class DiscountAccess {
 
     public DiscountEntity getById(String discountId) {
         return ds.get(DiscountEntity.class, new ObjectId(discountId));
+    }   
+
+    public List<DiscountEntity> getBoughtBy(ObjectId id) {
+        return ds.createQuery(DiscountEntity.class)
+                .field("buyers")
+                .equal(id)
+                .asList();
     }
 }

@@ -7,6 +7,7 @@ app.controller('NewDiscountController', function ($scope, $location, WebService)
 
     function initScope() {
         $scope.discountName = '';
+        $scope.description = '';
         $scope.website = '';
         $scope.code = '';
         $scope.price = '';
@@ -17,6 +18,7 @@ app.controller('NewDiscountController', function ($scope, $location, WebService)
     function saveDiscount() {
         var discount = {
             discountName: $scope.discountName,
+            description: $scope.description,
             website: $scope.website,
             code: $scope.code,
             price: $scope.price

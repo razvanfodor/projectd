@@ -23,6 +23,7 @@ public class DiscountEntity implements Cloneable {
     
     private String discountName;
 
+    private String description;
     private String website;
     private String code;
     private Long price;
@@ -92,6 +93,14 @@ public class DiscountEntity implements Cloneable {
     public ObjectId getId() {
         return id;
     } 
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public DiscountEntity cloneDetached(){
         final DiscountEntity discount = new DiscountEntity();

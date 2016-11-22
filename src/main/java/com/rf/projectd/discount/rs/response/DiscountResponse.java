@@ -17,6 +17,7 @@ public class DiscountResponse {
     private String id;
     
     private String discountName;
+    private String description;
     private String website;
     private Long price;
     private String userName;
@@ -27,6 +28,7 @@ public class DiscountResponse {
     public DiscountResponse(DiscountEntity discount, User user) {
        this.id = discount.getId().toString();
        this.discountName = discount.getDiscountName();
+       this.description = discount.getDescription();
        this.website = discount.getWebsite();       
        this.price = discount.getPrice();
        this.userName = user.getUserName();
@@ -70,5 +72,13 @@ public class DiscountResponse {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

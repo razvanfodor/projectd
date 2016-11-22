@@ -14,6 +14,7 @@ import com.rf.projectd.user.UserBE;
 import com.rf.projectd.user.UserContext;
 import com.rf.projectd.user.entity.User;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -53,6 +54,7 @@ public class Discount {
     @Consumes({MediaType.APPLICATION_JSON})
     public void saveNew(DiscountEntity discount) {
         discount.setCreatorId(userContext.getLoggedInUser().getId());
+        discount.setCreationDate(new Date());
         discountAccess.save(discount);
     }
 

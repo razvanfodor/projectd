@@ -7,6 +7,7 @@ package com.rf.projectd.discount.rs.response;
 
 import com.rf.projectd.discount.entity.DiscountEntity;
 import com.rf.projectd.user.entity.User;
+import java.util.Date;
 
 /**
  *
@@ -16,6 +17,7 @@ public class DiscountResponse {
 
     private String id;
     
+    private Date creationDate;
     private String discountName;
     private String description;
     private String website;
@@ -27,6 +29,7 @@ public class DiscountResponse {
     
     public DiscountResponse(DiscountEntity discount, User user) {
        this.id = discount.getId().toString();
+       this.creationDate = discount.getCreationDate();
        this.discountName = discount.getDiscountName();
        this.description = discount.getDescription();
        this.website = discount.getWebsite();       
@@ -67,11 +70,19 @@ public class DiscountResponse {
     }
 
     public String getCode() {
-        return code;
+        return code;    
     }
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getDescription() {

@@ -15,9 +15,17 @@
             </div>
             <div class="row">
                 <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Discount Description</label>
+                    <label class="col-sm-2 control-label">Date</label>
                 </div>
                 <div class="col-sm-8">
+                    {{discount.creationDate | date}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col-sm-2 control-label">Discount Description</label>
+                </div>
+                <div class="col-sm-8" style="white-space: pre;">
                     {{discount.description}}
                 </div>
             </div>
@@ -45,7 +53,7 @@
                     {{discount.code}}
                 </div>
             </div>
-            <div class="row" ng-if="discount.type == 'SELL'"    >
+            <div class="row" ng-if="discount.type == 'SELL'">
                 <div class="col-sm-offset-4 col-sm-12">
                     <button type="button" class="btn btn-default" id="buyDiscountButton" data-toggle="modal" data-target="#buyModal">Buy!</button>
                 </div>

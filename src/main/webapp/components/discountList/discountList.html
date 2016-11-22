@@ -1,6 +1,7 @@
 <table st-table="discounts" class="table table-hover">
     <thead>
         <tr>
+            <th>Date</th>
             <th>Discount Name</th>
             <th>Store Web Site</th>
             <th>Price</th>
@@ -8,6 +9,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="row in discounts" ng-click="goToDetails(row.id)">
+            <td>{{row.creationDate | date}}</td>
             <td>{{row.discountName}}</td>
             <td>{{row.website}}</td>
             <td>{{row.price}}</td>

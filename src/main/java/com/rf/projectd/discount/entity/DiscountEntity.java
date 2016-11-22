@@ -6,6 +6,7 @@
 package com.rf.projectd.discount.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -21,6 +22,7 @@ public class DiscountEntity implements Cloneable {
     @Id
     private ObjectId id;
     
+    private Date creationDate;
     private String discountName;
 
     private String description;
@@ -100,6 +102,14 @@ public class DiscountEntity implements Cloneable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public DiscountEntity cloneDetached(){

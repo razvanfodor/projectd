@@ -18,6 +18,7 @@ public class DiscountResponse {
     private String id;
     
     private Date creationDate;
+    private Date buyDate;
     private String discountName;
     private String description;
     private String website;
@@ -91,5 +92,13 @@ public class DiscountResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getBuyDate() {
+        return buyDate;
+    }
+
+    public void setBuyDate(Date buyDate) {
+        this.buyDate = buyDate;
     }
 }

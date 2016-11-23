@@ -30,7 +30,7 @@ public class DiscountEntity implements Cloneable {
     private String code;
     private Long price;
     private ObjectId creatorId;
-    private List<ObjectId> buyers;
+    private List<Buyer> buyers;
 
     public String getCode() {
         return code;
@@ -124,7 +124,7 @@ public class DiscountEntity implements Cloneable {
         return discount;
     }
 
-    public List<ObjectId> getBuyers() {
+    public List<Buyer> getBuyers() {
         if (buyers == null){
             buyers = new ArrayList<>();
         }

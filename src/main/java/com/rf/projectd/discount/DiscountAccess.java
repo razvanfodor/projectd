@@ -48,7 +48,7 @@ public class DiscountAccess {
 
     public List<DiscountEntity> getBoughtBy(ObjectId id) {
         return ds.createQuery(DiscountEntity.class)
-                .field("buyers")
+                .field("buyers.userId")
                 .equal(id)
                 .asList();
     }

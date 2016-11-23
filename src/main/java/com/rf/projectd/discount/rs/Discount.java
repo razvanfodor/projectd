@@ -8,6 +8,7 @@ package com.rf.projectd.discount.rs;
 import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
+import com.rf.projectd.discount.entity.Buyer;
 import com.rf.projectd.discount.rs.response.DiscountResponse;
 import com.rf.projectd.discount.rs.response.DiscountType;
 import com.rf.projectd.user.UserBE;
@@ -27,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -121,7 +123,7 @@ public class Discount {
         Long userPoints = buyer.getdPoints() - discount.getPrice();
         buyer.setdPoints(userPoints);
 
-        discount.getBuyers().add(buyer.getId());
+        discount.getBuyers().add(new Buyer(buyer.getId(), new Date()));
 
         discountAccess.save(discount);
         userBe.persistUser(seller);
@@ -137,8 +139,18 @@ public class Discount {
     private List<DiscountResponse> transformToDiscountResponses(final List<DiscountEntity> discounts) {
         List<DiscountResponse> responses = new ArrayList(discounts.size());
         for (DiscountEntity discount : discounts) {
-            User user = userBe.getUserById(discount.getCreatorId());
-            responses.add(new DiscountResponse(discount, user));
+            User creatorUser = userBe.getUserById(discount.getCreatorId());
+            final DiscountResponse discountResponse = new DiscountResponse(discount, creatorUser);
+            final User loggedInUser = userContext.getLoggedInUser();
+            if (!creatorUser.equals(loggedInUser)){
+                for (Buyer buyer : discount.getBuyers()){
+                    if (loggedInUser.getId().equals(buyer.getUserId())){
+                        discountResponse.setBuyDate(buyer.getDate());
+                    }
+                }
+            }
+            
+            responses.add(discountResponse);
         }
         return responses;
     }

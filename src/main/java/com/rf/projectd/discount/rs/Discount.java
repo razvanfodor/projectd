@@ -133,7 +133,7 @@ public class Discount {
     }
 
     private boolean isBuyer(User user, DiscountEntity discount) {
-        return discount.getBuyers().contains(user.getId());
+        return discount.getBuyers().stream().filter(buyer -> user.getId().equals(buyer.getUserId())).findFirst().isPresent();
     }
 
     private List<DiscountResponse> transformToDiscountResponses(final List<DiscountEntity> discounts) {

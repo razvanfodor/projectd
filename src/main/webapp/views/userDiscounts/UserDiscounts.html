@@ -4,7 +4,25 @@
         <div class="panel panel-default">
             <div class="panel-heading">My discounts</div>
             <div class="panel-body">
-                <discount-list discounts="myDiscounts"/>
+                <table st-table="discounts" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Discount Name</th>
+                            <th>Store Web Site</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in myDiscounts" ng-click="goToDetails(row.id)">
+                            <td>{{row.creationDate | date}}</td>
+                            <td>{{row.discountName}}</td>
+                            <td>{{row.website}}</td>
+                            <td>{{row.price}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
@@ -12,7 +30,25 @@
         <div class="panel panel-default">
             <div class="panel-heading">Purchased discounts</div>
             <div class="panel-body">
-                <discount-list discounts="boughtDiscounts"/>
+                <table st-table="discounts" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Discount Name</th>
+                            <th>Store Web Site</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in boughtDiscounts" ng-click="goToDetails(row.id)">
+                            <td>{{row.creationDate | date}}</td>
+                            <td>{{row.discountName}}</td>
+                            <td>{{row.website}}</td>
+                            <td>{{row.price}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>

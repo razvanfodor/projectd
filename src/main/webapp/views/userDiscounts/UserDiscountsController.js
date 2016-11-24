@@ -18,10 +18,15 @@ app.controller("UserDiscountsController", function ($scope, $location, WebServic
                     $scope.boughtDiscounts = data;
                 });
         $scope.goToDetails = goToDetails;
+        $scope.editDiscount = editDiscount;
     }
     
     function goToDetails(discountId) {
         $location.path('discountDetails').search("did=" + discountId);
+    }
+    
+    function editDiscount(discountId) {
+        $location.path('editDiscount').search("did=" + discountId);
     }
 
     main();

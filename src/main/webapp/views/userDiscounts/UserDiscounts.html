@@ -14,7 +14,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="row in myDiscounts" ng-click="goToDetails(row.id)">
+                        <tr ng-repeat="row in myDiscounts" ng-click="editDiscount(row.id)">
                             <td>{{row.creationDate | date}}</td>
                             <td>{{row.discountName}}</td>
                             <td>{{row.website}}</td>

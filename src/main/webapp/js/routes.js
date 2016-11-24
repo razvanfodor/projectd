@@ -21,8 +21,12 @@ app.config(['$routeProvider',
                     controller: 'LoginController'
                 })
                 .when('/newDiscount', {
-                    templateUrl: 'views/newDiscount/NewDiscount.html',
-                    controller: 'NewDiscountController'
+                    templateUrl: 'views/discountEdit/DiscountEdit.html',
+                    controller: 'DiscountEditController'
+                })
+                .when('/editDiscount', {
+                    templateUrl: 'views/discountEdit/DiscountEdit.html',
+                    controller: 'DiscountEditController'
                 })
                 .when('/viewMyDiscounts', {
                     templateUrl: 'views/userDiscounts/UserDiscounts.html',

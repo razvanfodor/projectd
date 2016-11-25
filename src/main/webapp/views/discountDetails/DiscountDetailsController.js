@@ -10,20 +10,25 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, $loc
         $scope.discount = {};
         refreshDiscount();
         $scope.buyDiscount = buyDiscount;
+        $scope.goToUserDetails = goToUserDetails;
     }
     
-    function refreshDiscount(){
-        WebService.get("discount/details", {"did": $routeParams.did})
-                .then(function (data) {
-                    $scope.discount = data;
-                });
-    }
-
     function buyDiscount() {
         WebService.put("discount/buy", $routeParams.did)
                 .then(function () {
                     refreshDiscount();
                 });
+    }
+    
+    function refreshDiscount() {
+        WebService.get("discount/details", {"did": $routeParams.did})
+                .then(function (data) {
+                    $scope.discount = data;
+                });
+    }
+    
+    function goToUserDetails(userId){
+        $location.path('userDetails').search("uid=" + userId);
     }
     
     main();

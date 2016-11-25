@@ -37,6 +37,14 @@
                     {{discount.website}}
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col-sm-2 control-label">Creator</label>
+                </div>
+                <div class="col-sm-8" ng-click="goToUserDetails(discount.userId)">
+                    {{discount.userName}}
+                </div>
+            </div>
             <div class="row" ng-if="discount.type=='OWNED' || discount.type=='SELL'">
                 <div class="col-sm-4">
                     <label class="col-sm-2 control-label">Price</label>

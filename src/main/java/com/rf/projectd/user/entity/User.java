@@ -5,6 +5,8 @@
  */
 package com.rf.projectd.user.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -24,6 +26,8 @@ public class User {
     private String userName;
     private String email;
     private Long dPoints;
+    private Integer ratingPoints; // 1..10
+    private List<UserComment> comments;
     
     //TODO this has to be encrypted
     private String password;
@@ -82,6 +86,17 @@ public class User {
 
     public void setdPoints(Long dPoints) {
         this.dPoints = dPoints;
+    }
+
+    public Integer getRatingPoints() {
+        return ratingPoints;
+    }
+
+    public List<UserComment> getComments() {
+        if (comments == null){
+            comments = new ArrayList();
+        }
+        return comments;
     }
 
     @Override

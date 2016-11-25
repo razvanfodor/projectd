@@ -24,6 +24,7 @@ public class DiscountResponse {
     private String website;
     private Long price;
     private String userName;
+    private String userId;
     private DiscountType type = DiscountType.SELL;
     private String code;
     
@@ -36,6 +37,7 @@ public class DiscountResponse {
        this.website = discount.getWebsite();       
        this.price = discount.getPrice();
        this.userName = user.getUserName();
+       this.userId = user.getId().toString();
     }
 
     public String getId() {
@@ -100,5 +102,13 @@ public class DiscountResponse {
 
     public void setBuyDate(Date buyDate) {
         this.buyDate = buyDate;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

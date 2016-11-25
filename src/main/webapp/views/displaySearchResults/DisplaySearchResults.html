@@ -1,7 +1,24 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <discount-list discounts="discounts"/>
+        <table st-table="discounts" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Discount Name</th>
+                    <th>Store Web Site</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in discounts" ng-click="buy(row.id)">
+                    <td>{{row.creationDate| date}}</td>
+                    <td>{{row.discountName}}</td>
+                    <td>{{row.website}}</td>
+                    <td>{{row.price}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="col-md-3"></div>
 </div>

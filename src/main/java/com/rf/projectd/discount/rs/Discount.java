@@ -28,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -60,12 +61,19 @@ public class Discount {
     }
 
     @GET
+    @Path("/getCreatedBy")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCreatedBy(@QueryParam("uid") String userId) {
+        return getCreatedBy(new ObjectId(userId));
+    }
+
+    @GET
     @Path("/getMy")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCreatedByUser() {
-        final List<DiscountEntity> discounts = discountAccess.getCreatedBy(userContext.getLoggedInUser().getId());
-        return responseService.ok(transformToDiscountResponses(discounts));
+    public Response getCreatedByLoggedInUser() {
+        return getCreatedBy(userContext.getLoggedInUser().getId());
     }
+
 
     @GET
     @Path("/getBought")
@@ -152,5 +160,10 @@ public class Discount {
             responses.add(discountResponse);
         }
         return responses;
+    }
+
+    private Response getCreatedBy(ObjectId userId) {
+        final List<DiscountEntity> discounts = discountAccess.getCreatedBy(userId);
+        return responseService.ok(transformToDiscountResponses(discounts));
     }
 }

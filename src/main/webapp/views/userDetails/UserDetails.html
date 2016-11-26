@@ -3,15 +3,16 @@
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{user.userName}}</h3>
+                <h3 class="panel-title">{{user.userName}} {{user.ratingPoints}}</h3>
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <label class="col-sm-2 control-label">Commenter name</label>
                 </div>
-                <div class="col-sm-8">
-                    Stars here. <br>
-                    The best user ever!
+                <div ng-repeat="comment in user.comments" class="col-sm-8">
+                    {{comment.userName}}
+                    {{comment.rating}} <br>
+                    {{comment.comment}}
                 </div>
             </div>
         </div>
@@ -19,11 +20,28 @@
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Discounts from {{user.name}}</h3>
+                <h3 class="panel-title">Discounts from {{user.userName}}</h3>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <label class="col-sm-2 control-label">Discount here!</label>
+                    <table st-table="discounts" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Discount Name</th>
+                                <th>Store Web Site</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in discounts" ng-click="buy(row.id)">
+                                <td>{{row.creationDate| date}}</td>
+                                <td>{{row.discountName}}</td>
+                                <td>{{row.website}}</td>
+                                <td>{{row.price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

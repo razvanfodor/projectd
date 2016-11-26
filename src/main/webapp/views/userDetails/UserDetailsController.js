@@ -8,15 +8,31 @@ app.controller("UserDetailsController", function ($scope, $routeParams, WebServi
 
     function initScope() {
         $scope.user = {};
-        getUser();
+        $scope.discounts = {};
+        $scope.buy = buy;
+
+        getUserDetails();
+        getUserDiscounts();
     }
     
-    function getUser() {
+    function getUserDetails() {
         WebService.get("user/details", {"uid": $routeParams.uid})
                 .then(function (data) {
                     $scope.user = data;
                 });
     }
+
+    function getUserDiscounts() {
+        WebService.get("discount/getCreatedBy", {"uid": $routeParams.uid})
+                .then(function (data) {
+                    $scope.discounts = data;
+                });
+    }
+    
+    function buy(discountId) {
+        $location.path('discountDetails').search("did=" + discountId);
+    }
+
 
     main();
 });

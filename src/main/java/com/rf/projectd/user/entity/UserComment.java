@@ -23,10 +23,12 @@ public class UserComment {
     public UserComment() {
     }
 
-    public UserComment(ObjectId commenterId, String comment, Integer rating) {
+    public UserComment(ObjectId commenterId, String comment, Integer rating, String summary, Date date) {
         this.commenterId = commenterId;
         this.comment = comment;
         this.rating = rating;
+        this.summary = summary;
+        this.date = date;
     }
     
     public String getComment() {

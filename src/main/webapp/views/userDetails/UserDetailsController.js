@@ -10,7 +10,13 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
         $scope.maxRatingPoints = 5;
         $scope.user = {};
         $scope.discounts = {};
-        $scope.buy = buy;
+        $scope.addComment = addComment;
+        $scope.newComment = {
+            userId : $routeParams.uid,
+            rating : 1,
+            summary : '',
+                text : ''           
+        };
 
         getUserDetails();
         getUserDiscounts();
@@ -20,11 +26,6 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
         WebService.get("user/details", {"uid": $routeParams.uid})
                 .then(function (data) {
                     $scope.user = data;
-                    $scope.user.ratingPoints = $scope.user.ratingPoints / 2;
-                    $scope.user.comments.forEach(function (comment) {
-                        comment.rating = comment.rating / 2; 
-                    }
-                    );
                 });
     }
 
@@ -35,10 +36,12 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
                 });
     }
 
-    function buy(discountId) {
-        $location.path('discountDetails').search("did=" + discountId);
+    function addComment(discountId) {
+        WebService.put("user/addComment", $scope.newComment)
+                .then(function () {
+                    getUserDetails();
+                });
     }
-
 
     main();
 });

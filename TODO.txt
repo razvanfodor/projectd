@@ -3,3 +3,4 @@ should not be able to add empty user
 
 user ratings
 discount images?
+protect against javascript injection;

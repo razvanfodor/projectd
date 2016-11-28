@@ -92,6 +92,10 @@ public class User {
         return ratingPoints;
     }
 
+    public void setRatingPoints(Integer ratingPoints) {
+        this.ratingPoints = ratingPoints;
+    }
+
     public List<UserComment> getComments() {
         if (comments == null){
             comments = new ArrayList();

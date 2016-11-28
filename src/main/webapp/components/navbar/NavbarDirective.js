@@ -5,7 +5,6 @@ app.directive('navbar', function () {
         restrict: 'E',
         templateUrl: 'components/navbar/navbar.html',
         scope: true,
-
         controller: 'NavbarController'
     };
 });

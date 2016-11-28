@@ -10,7 +10,6 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, $loc
         $scope.discount = {};
         refreshDiscount();
         $scope.buyDiscount = buyDiscount;
-        $scope.goToUserDetails = goToUserDetails;
     }
     
     function buyDiscount() {
@@ -26,10 +25,6 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, $loc
                     $scope.discount = data;
                 });
     }
-    
-    function goToUserDetails(userId){
-        $location.path('userDetails').search("uid=" + userId);
-    }
-    
+
     main();
 });

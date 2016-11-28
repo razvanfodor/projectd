@@ -3,3 +3,6 @@
 [x-ng-click] {
     cursor: pointer;
 }
+.clickable {
+    color: blue;
+}

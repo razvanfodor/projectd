@@ -7,12 +7,15 @@ package com.rf.projectd.user.rs.response;
 
 import com.rf.projectd.user.entity.UserComment;
 import java.util.Date;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author raz
  */
 public class UserCommentResponse {
+    
+    private String userId;
     private String userName;
     private Integer rating;
     private String comment;
@@ -24,6 +27,7 @@ public class UserCommentResponse {
 
 
     public UserCommentResponse(UserComment comment, String commenterName){
+        this.userId = comment.getCommenterId().toString();
         this.userName = commenterName;
         this.rating = comment.getRating();
         this.comment = comment.getComment();
@@ -70,6 +74,12 @@ public class UserCommentResponse {
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

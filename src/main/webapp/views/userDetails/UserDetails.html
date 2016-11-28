@@ -18,7 +18,7 @@
                                    read-only="true" aria-labelledby="default-rating"></span>
                             {{comment.summary}}
                         </h4>    
-                        <div>From {{comment.userName}} on {{comment.date| date}}</div>
+                        <div>From <user name="comment.userName" id="comment.userId"/> on {{comment.date | date}}</div>
                         <div>{{comment.comment}}</div>
                     </div>
                 </div>

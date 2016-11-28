@@ -3,20 +3,28 @@
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{user.userName}} {{user.ratingPoints}}</h3>
+                <h3 class="panel-title">
+                    Ratings for {{user.userName}}<br><br>
+                    Total:                
+                    <span uib-rating ng-model="user.ratingPoints" max="maxRatingPoints"
+                          read-only="true" aria-labelledby="default-rating"></span>
+
+                </h3>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Commenter name</label>
-                </div>
                 <div ng-repeat="comment in user.comments" class="col-sm-8">
-                    {{comment.userName}}
-                    {{comment.rating}} <br>
-                    {{comment.comment}}
+                    <div>
+                        <h4><span uib-rating ng-model="comment.rating" max="maxRatingPoints"
+                                   read-only="true" aria-labelledby="default-rating"></span>
+                            {{comment.summary}}
+                        </h4>    
+                        <div>From {{comment.userName}} on {{comment.date| date}}</div>
+                        <div>{{comment.comment}}</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>            
+    </div>
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">

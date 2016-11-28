@@ -5,6 +5,7 @@
  */
 package com.rf.projectd.user.entity;
 
+import java.util.Date;
 import org.bson.types.ObjectId;
 
 /**
@@ -16,6 +17,8 @@ public class UserComment {
     private ObjectId commenterId;
     private String comment;
     private Integer rating;
+    private String summary;
+    private Date date;
 
     public UserComment() {
     }
@@ -48,5 +51,21 @@ public class UserComment {
 
     public void setCommenterId(ObjectId commenterId) {
         this.commenterId = commenterId;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

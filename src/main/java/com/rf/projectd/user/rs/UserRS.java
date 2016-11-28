@@ -65,10 +65,7 @@ public class UserRS {
                     .getUserById(userComment.getCommenterId())
                     .getUserName();
             details.getComments()
-                    .add(new UserCommentResponse(
-                            userName, 
-                            userComment.getRating(), 
-                            userComment.getComment()));
+                    .add(new UserCommentResponse( userComment, userName));
         });
         
         return details;

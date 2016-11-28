@@ -2,5 +2,6 @@
 
 var app = angular.module('app', [
     'ngRoute',
-    'ngStorage'    
+    'ngStorage',
+    'ui.bootstrap'
 ]);

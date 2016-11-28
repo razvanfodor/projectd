@@ -5,6 +5,9 @@
  */
 package com.rf.projectd.user.rs.response;
 
+import com.rf.projectd.user.entity.UserComment;
+import java.util.Date;
+
 /**
  *
  * @author raz
@@ -13,16 +16,21 @@ public class UserCommentResponse {
     private String userName;
     private Integer rating;
     private String comment;
+    private String summary;
+    private Date date;
 
     public UserCommentResponse() {
     }
 
-    public UserCommentResponse(String userName, Integer rating, String comment) {
-        this.userName = userName;
-        this.rating = rating;
-        this.comment = comment;
-    }
 
+    public UserCommentResponse(UserComment comment, String commenterName){
+        this.userName = commenterName;
+        this.rating = comment.getRating();
+        this.comment = comment.getComment();
+        this.summary = comment.getSummary();
+        this.date = comment.getDate();
+    }
+    
     public String getUserName() {
         return userName;
     }
@@ -46,4 +54,22 @@ public class UserCommentResponse {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
+    
 }

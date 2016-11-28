@@ -3,13 +3,14 @@
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">
+                <h3 ng-if="user.comments.length > 0" class="panel-title">
                     Ratings for {{user.userName}}<br><br>
                     Total:                
                     <span uib-rating ng-model="user.ratingPoints" max="maxRatingPoints"
                           read-only="true" aria-labelledby="default-rating"></span>
 
                 </h3>
+                <h3 ng-if="user.comments.length == 0" class="panel-title">There are no ratings for {{user.userName}}</h3>
             </div>
             <div class="row">
                 <div ng-repeat="comment in user.comments" class="col-sm-8">

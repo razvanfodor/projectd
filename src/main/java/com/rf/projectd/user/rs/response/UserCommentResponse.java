@@ -7,7 +7,6 @@ package com.rf.projectd.user.rs.response;
 
 import com.rf.projectd.user.entity.UserComment;
 import java.util.Date;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -82,4 +81,4 @@ public class UserCommentResponse {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-}
+}   

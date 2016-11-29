@@ -1,4 +1,4 @@
-app.controller('SearchController', function ($scope, $location, $sessionStorage) {
+app.controller('UserController', function ($scope, $location) {
     function main() {
         initScope();
     }

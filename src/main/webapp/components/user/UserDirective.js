@@ -8,6 +8,6 @@ app.directive('user', function () {
             id : "=",
             name : "="
         },
-        controller: 'SearchController'
+        controller: 'UserController'
     };
 });

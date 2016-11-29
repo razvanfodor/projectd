@@ -9,6 +9,7 @@ import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
 import com.rf.projectd.discount.entity.Buyer;
+import com.rf.projectd.discount.rs.request.DiscountRequest;
 import com.rf.projectd.discount.rs.response.DiscountResponse;
 import com.rf.projectd.discount.rs.response.DiscountType;
 import com.rf.projectd.user.UserBE;
@@ -54,9 +55,21 @@ public class Discount {
     @Path("/saveNew")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
-    public void saveNew(DiscountEntity discount) {
+    public void saveNew(DiscountRequest discountReq) {
+        DiscountEntity discount = toDiscountEntity(discountReq, new DiscountEntity());
+        
         discount.setCreatorId(userContext.getLoggedInUser().getId());
         discount.setCreationDate(new Date());
+        discountAccess.save(discount);
+    }
+
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON})
+    public void updateDiscout(DiscountRequest discountReq) {
+        DiscountEntity discount = discountAccess.getById(discountReq.getId());
+        discount = toDiscountEntity(discountReq, discount);
         discountAccess.save(discount);
     }
 
@@ -165,5 +178,14 @@ public class Discount {
     private Response getCreatedBy(ObjectId userId) {
         final List<DiscountEntity> discounts = discountAccess.getCreatedBy(userId);
         return responseService.ok(transformToDiscountResponses(discounts));
+    }
+    
+    private DiscountEntity toDiscountEntity(DiscountRequest discountReq, DiscountEntity discount) {        
+        discount.setDiscountName(discountReq.getDiscountName());
+        discount.setDescription(discountReq.getDescription());
+        discount.setCode(discountReq.getCode());
+        discount.setPrice(discountReq.getPrice());
+        discount.setWebsite(discountReq.getWebsite());
+        return discount;
     }
 }

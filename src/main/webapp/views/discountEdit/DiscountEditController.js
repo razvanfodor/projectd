@@ -7,6 +7,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
 
     function initScope() {
         $scope.discount = {
+            id: $routeParams.did,
             discountName: '',
             description: '',
             website: '',
@@ -29,8 +30,8 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
 
     function saveDiscount() {
         if (isEditMode()) {
-            WebService.post('discount/update', $scope.discount)
-                    .then(function () {t
+            WebService.put('discount/update', $scope.discount)
+                    .then(function () {
                         $location.path('/viewMyDiscounts');
                     });
         }

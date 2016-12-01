@@ -37,7 +37,8 @@ public class DiscountAccess {
         final Query<DiscountEntity> query = ds.createQuery(DiscountEntity.class);
         query.and(query.criteria("creatorId").notEqual(userId), 
                 query.or(query.criteria("discountName").containsIgnoreCase(searchValue),
-                        query.criteria("website").containsIgnoreCase(searchValue)));
+                        query.criteria("website").containsIgnoreCase(searchValue),
+                        query.criteria("tags").containsIgnoreCase(searchValue)));
 
         return query.asList();
     }

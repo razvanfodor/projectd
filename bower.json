@@ -26,6 +26,7 @@
     "components-font-awesome": "^4.6.3",
     "ngstorage" : "*",
     "angular-smart-table" : "*",
-    "angular-bootstrap" : "*"
+    "angular-bootstrap" : "*",
+    "ng-tags-input" : "^3.1.1"
   }
 }

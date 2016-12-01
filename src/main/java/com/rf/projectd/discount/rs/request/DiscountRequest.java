@@ -5,6 +5,8 @@
  */
 package com.rf.projectd.discount.rs.request;
 
+import java.util.List;
+
 /**
  *
  * @author XFODOR
@@ -18,6 +20,7 @@ public class DiscountRequest {
     private String website;
     private String code;
     private Long price;
+    private List<String> tags;
 
     public String getId() {
         return id;
@@ -65,5 +68,13 @@ public class DiscountRequest {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

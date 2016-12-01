@@ -32,7 +32,6 @@ import javax.ws.rs.core.Response;
 import org.bson.types.ObjectId;
 
 /**
- *
  * @author XFODOR
  */
 @Stateless
@@ -186,6 +185,7 @@ public class Discount {
         discount.setCode(discountReq.getCode());
         discount.setPrice(discountReq.getPrice());
         discount.setWebsite(discountReq.getWebsite());
+        discount.getTags().addAll(discountReq.getTags());
         return discount;
     }
 }

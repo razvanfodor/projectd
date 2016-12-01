@@ -7,7 +7,9 @@ package com.rf.projectd.discount.rs.response;
 
 import com.rf.projectd.discount.entity.DiscountEntity;
 import com.rf.projectd.user.entity.User;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -27,6 +29,7 @@ public class DiscountResponse {
     private String userId;
     private DiscountType type = DiscountType.SELL;
     private String code;
+    private List<String> tags;
     
     
     public DiscountResponse(DiscountEntity discount, User user) {
@@ -38,6 +41,7 @@ public class DiscountResponse {
        this.price = discount.getPrice();
        this.userName = user.getUserName();
        this.userId = user.getId().toString();
+       this.getTags().addAll(discount.getTags());
     }
 
     public String getId() {
@@ -110,5 +114,12 @@ public class DiscountResponse {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public List<String> getTags() {
+        if (tags == null){
+            tags = new ArrayList();
+        }
+        return tags;
     }
 }

@@ -17,7 +17,8 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
             summary : '',
                 text : ''           
         };
-
+        $scope.buy = buy;
+        
         getUserDetails();
         getUserDiscounts();
     }
@@ -41,6 +42,10 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
                 .then(function () {
                     getUserDetails();
                 });
+    }
+    
+    function buy(discountId) {
+        $location.path('discountDetails').search("did=" + discountId);
     }
 
     main();

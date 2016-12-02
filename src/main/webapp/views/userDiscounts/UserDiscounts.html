@@ -4,17 +4,17 @@
         <div class="panel panel-default">
             <div class="panel-heading">My discounts</div>
             <div class="panel-body">
-                <table st-table="discounts" class="table table-hover">
+                <table st-table="discounts" st-safe-src="myDiscounts" class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Discount Name</th>
-                            <th>Store Web Site</th>
-                            <th>Price</th>
+                            <th st-sort="creationDate" st-sort-default="reverse" class="sorting-header">Date</th>
+                            <th st-sort="discountName" class="sorting-header">Discount Name</th>
+                            <th st-sort="website" class="sorting-header">Store Web Site</th>
+                            <th st-sort="price" class="sorting-header">Price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="row in myDiscounts" ng-click="editDiscount(row.id)">
+                        <tr ng-repeat="row in discounts" ng-click="editDiscount(row.id)">
                             <td>{{row.creationDate | date}}</td>
                             <td>{{row.discountName}}</td>
                             <td>{{row.website}}</td>
@@ -30,17 +30,17 @@
         <div class="panel panel-default">
             <div class="panel-heading">Purchased discounts</div>
             <div class="panel-body">
-                <table st-table="discounts" class="table table-hover">
+                <table st-table="purchases" st-safe-src="boughtDiscounts" class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Discount Name</th>
-                            <th>Store Web Site</th>
-                            <th>Price</th>
+                            <th st-sort="creationDate" st-sort-default="reverse" class="sorting-header">Date</th>
+                            <th st-sort="discountName" class="sorting-header">Discount Name</th>
+                            <th st-sort="website" class="sorting-header">Store Web Site</th>
+                            <th st-sort="price" class="sorting-header">Price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="row in boughtDiscounts" ng-click="goToDetails(row.id)">
+                        <tr ng-repeat="row in purchases" ng-click="goToDetails(row.id)">
                             <td>{{row.creationDate | date}}</td>
                             <td>{{row.discountName}}</td>
                             <td>{{row.website}}</td>

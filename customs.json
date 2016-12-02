@@ -6,6 +6,9 @@
         "user": {}
     },
     "attributes": {
+        "st-sort": {
+            "context": "th"
+        },
         "st-table": {
             "context": "table"
         }

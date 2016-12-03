@@ -98,10 +98,23 @@ public class Discount {
     @GET
     @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response search(@QueryParam("searchValue") String searchValue) {
-        final List<DiscountEntity> discounts = discountAccess.search(searchValue, userContext.getLoggedInUser().getId());
+    public Response search(@QueryParam("searchValue") String searchValue,
+            @QueryParam("startIndex") Integer startIndex,
+            @QueryParam("numberEntriesPerPage") Integer numberEntriesPerPage,
+            @QueryParam("sortPredicate") String sortPredicate,
+            @QueryParam("sortReverse") Boolean sortReverse) {
+        sortReverse = sortReverse != null ? sortReverse : false; 
+        final ObjectId userId = userContext.getLoggedInUser().getId();
+        final List<DiscountEntity> discounts = discountAccess.search(searchValue,
+                startIndex,
+                numberEntriesPerPage,
+                sortPredicate,
+                sortReverse,
+                userId);
         List<DiscountResponse> responses = transformToDiscountResponses(discounts);
-        return responseService.ok(responses);
+        final long searchCount = discountAccess.searchCount(searchValue, userId);
+        
+        return responseService.ok(new SearchResult(responses, searchCount));
     }
 
     @GET

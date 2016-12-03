@@ -33,14 +33,30 @@ public class DiscountAccess {
 
     }
 
-    public List<DiscountEntity> search(String searchValue, ObjectId userId) {
+    public List<DiscountEntity> search(String searchValue, int startIndex, int numberEntriesPerPage, 
+            String sortPredicate, Boolean searchReverse, ObjectId userId) {
+        Query<DiscountEntity> query = createSearchQuery(userId, searchValue);
+        if (sortPredicate != null){
+                query.order((searchReverse? "-" : "") + sortPredicate);
+        }
+
+        return query
+                .offset(startIndex)
+                .limit(numberEntriesPerPage)
+                .asList();
+    }
+    
+    public long searchCount(String searchValue, ObjectId userId){
+        return createSearchQuery(userId, searchValue).countAll();
+    }
+
+    private Query<DiscountEntity> createSearchQuery(ObjectId userId, String searchValue) {
         final Query<DiscountEntity> query = ds.createQuery(DiscountEntity.class);
-        query.and(query.criteria("creatorId").notEqual(userId), 
+        query.and(query.criteria("creatorId").notEqual(userId),
                 query.or(query.criteria("discountName").containsIgnoreCase(searchValue),
                         query.criteria("website").containsIgnoreCase(searchValue),
                         query.criteria("tags").containsIgnoreCase(searchValue)));
-
-        return query.asList();
+        return query;
     }
 
     public DiscountEntity getById(String discountId) {

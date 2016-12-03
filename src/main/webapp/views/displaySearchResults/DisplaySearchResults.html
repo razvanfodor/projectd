@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <table st-table="data" st-safe-src="discounts" class="table table-hover">
+        <table st-table="discounts" st-pipe="searchDiscounts" class="table table-hover">
             <thead>
                 <tr>
                     <th st-sort="creationDate" st-sort-default="reverse" class="sorting-header">Date</th>
@@ -11,13 +11,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="row in data" ng-click="buy(row.id)">
+                <tr ng-repeat="row in discounts" ng-click="buy(row.id)">
                     <td>{{row.creationDate| date}}</td>
                     <td>{{row.discountName}}</td>
                     <td>{{row.website}}</td>
                     <td>{{row.price}}</td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-center" st-pagination="" st-items-by-page="3" colspan="4">
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <div class="col-md-3"></div>

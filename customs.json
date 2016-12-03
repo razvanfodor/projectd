@@ -6,6 +6,9 @@
         "user": {}
     },
     "attributes": {
+        "st-pagination": {
+            "context": "td"
+        },
         "st-sort": {
             "context": "th"
         },

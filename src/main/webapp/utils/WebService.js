@@ -155,7 +155,7 @@ app.factory('WebService', function ($http, $q, $sessionStorage) {
             if (object.hasOwnProperty(key)){
                 var value = object[key];
 
-                if(value === undefined || value === null || value == ''){
+                if(value === undefined || value === null || value === ''){
                     delete object[key];
                 }
             }

@@ -9,6 +9,7 @@ import com.rf.projectd.user.rs.request.NewCommentRequest;
 import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.user.rs.response.UserDetailsResponse;
 import com.rf.projectd.user.UserBE;
+import com.rf.projectd.user.UserContext;
 import com.rf.projectd.user.entity.User;
 import com.rf.projectd.user.rs.response.UserCommentResponse;
 import com.rf.projectd.user.rs.response.UserPersistenceResponse;
@@ -38,6 +39,9 @@ public class UserRS {
 
     @Inject
     private RestResponseService responseService;
+    
+    @Inject
+    private UserContext userContext;
 
     @POST
     @Path("/register")
@@ -51,7 +55,14 @@ public class UserRS {
     @Path("/details")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserDetails(@QueryParam("uid") String userId){
-        final User user = userBe.getUserById(new ObjectId(userId));
+        final ObjectId userIdObj;
+        if (userId == null || userId.isEmpty()){
+            userIdObj = userContext.getLoggedInUser().getId();
+        }
+        else{
+            userIdObj = new ObjectId(userId);
+        }
+        final User user = userBe.getUserById(userIdObj);
         
         return responseService.ok(getUserDetails(user));
     } 

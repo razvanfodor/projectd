@@ -26,6 +26,9 @@
                     <a ng-if="sessionStorage.authToken" href="#/newDiscount">Add New Discount</a>
                 </li>
                 <li>
+                    <a ng-if="sessionStorage.authToken" href="#/userProfile">Profile</a>
+                </li>
+                <li>
                     <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
                 </li>
                 <li>

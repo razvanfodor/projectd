@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">User Profile</h3>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="control-label">Profile Photo</label>
+                </div>
+                <div class="col-sm-8">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="control-label">First Name</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="website" ng-model="user.firstName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="control-label">Last Name</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="website" ng-model="user.lastName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="control-label">Email</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" id="website" ng-model="user.email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="control-label">DPoints</label>
+                </div>
+                <div class="col-sm-8">
+                    {{user.dPoints}}
+                </div>
+            </div>
+        </div>
+    </div>            
+    <div class="col-md-3"></div>
+</div>

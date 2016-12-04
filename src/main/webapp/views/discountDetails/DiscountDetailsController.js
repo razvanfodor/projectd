@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("DiscountDetailsController", function ($scope, $routeParams, $location, WebService) {
+app.controller("DiscountDetailsController", function ($scope, $routeParams, WebService) {
 
     function main() {
         initScope();

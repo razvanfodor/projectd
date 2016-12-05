@@ -12,7 +12,7 @@ app.controller("UserProfileController", function ($scope, $routeParams, WebServi
     }
 
     function refreshUser() {
-        WebService.get("user/details")
+        WebService.get("user/profile")
                 .then(function (data) {
                     $scope.user = data;
                 });

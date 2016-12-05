@@ -5,6 +5,7 @@
  */
 package com.rf.projectd.user.rs;
 
+import com.rf.projectd.user.rs.response.UserProfileResponse;
 import com.rf.projectd.user.rs.request.NewCommentRequest;
 import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.user.rs.response.UserDetailsResponse;
@@ -33,13 +34,13 @@ import org.bson.types.ObjectId;
 @Stateless
 @Path("/user")
 public class UserRS {
-    
+
     @Inject
     public UserBE userBe;
 
     @Inject
     private RestResponseService responseService;
-    
+
     @Inject
     private UserContext userContext;
 
@@ -47,25 +48,37 @@ public class UserRS {
     @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
-    public UserPersistenceResponse registerUser(User user){
+    public UserPersistenceResponse registerUser(User user) {
         return userBe.createNewUser(user);
-    } 
+    }
 
     @GET
     @Path("/details")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserDetails(@QueryParam("uid") String userId){
+    public Response getUserDetails(@QueryParam("uid") String userId) {
         final ObjectId userIdObj;
-        if (userId == null || userId.isEmpty()){
+        if (userId == null || userId.isEmpty()) {
             userIdObj = userContext.getLoggedInUser().getId();
-        }
-        else{
+        } else {
             userIdObj = new ObjectId(userId);
         }
         final User user = userBe.getUserById(userIdObj);
-        
+
         return responseService.ok(getUserDetails(user));
-    } 
+    }
+
+    @GET
+    @Path("/profile")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserProfile() {
+        final User user = userContext.getLoggedInUser();
+        final UserProfileResponse profile = new UserProfileResponse(user);
+        user.getComments().forEach(comment -> {
+            profile.getComments()
+                    .add(new UserCommentResponse(comment, userBe.getUserById(comment.getCommenterId()).getUserName()));
+        });
+        return responseService.ok(profile);
+    }
 
     @PUT
     @Path("/addComment")
@@ -77,7 +90,7 @@ public class UserRS {
 
     private UserDetailsResponse getUserDetails(User user) {
         final UserDetailsResponse details = new UserDetailsResponse();
-        
+
         details.setUserName(user.getUserName());
         details.setRatingPoints(user.getRatingPoints());
 
@@ -88,7 +101,7 @@ public class UserRS {
             details.getComments()
                     .add(new UserCommentResponse(userComment, userName));
         });
-        
+
         return details;
     }
 }

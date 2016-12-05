@@ -26,7 +26,7 @@ public class User {
     private String userName;
     private String email;
     private Long dPoints;
-    private Integer ratingPoints; // 1..10
+    private Integer ratingPoints; // 1..5
     private List<UserComment> comments;
     
     //TODO this has to be encrypted

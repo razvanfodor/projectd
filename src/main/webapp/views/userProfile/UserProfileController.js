@@ -9,6 +9,7 @@ app.controller("UserProfileController", function ($scope, $location, WebService)
     function initScope() {
         $scope.user = {};
         $scope.updateProfile = updateProfile;
+        $scope.updatedProfileClicked = false;
         
         refreshUser();
     }
@@ -21,6 +22,10 @@ app.controller("UserProfileController", function ($scope, $location, WebService)
     }
     
     function updateProfile(){
+        if ($scope.form.$invalid){
+            $scope.updatedProfileClicked = true;
+            return;
+        }
         var requestObj = {
             firstName : $scope.user.firstName,
             lastName : $scope.user.lastName,

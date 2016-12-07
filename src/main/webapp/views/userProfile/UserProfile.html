@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form class="form-horizontal">
+        <form class="form-horizontal" name="form">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">User Profile</h3>
@@ -9,27 +9,28 @@
                 <div class="form-group">
                     <label  for="firstName" class="col-sm-2 control-label">First Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="firstName"  ng-model="user.firstName">
+                        <input type="text" name="firstName" class="form-control" id="firstName" ng-model="user.firstName" minlength="1" required>
                     </div>
                 </div>                
                 <div class="form-group">
                     <label  for="lastName" class="col-sm-2 control-label">Last Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="lastName" ng-model="user.lastName">
+                        <input type="text" name="lastName" class="form-control" id="lastName" ng-model="user.lastName" minlength="1" required>
                     </div>
                 </div>                
                 <div class="form-group">
                     <label  for="email" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="email" ng-model="user.email">
+                        <input type="email" name="email" class="form-control" id="email" ng-model="user.email" email required>
                     </div>
                 </div>                
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">DPoints</label>
                     <div class="col-sm-10">
-                        {{user.dPoints}}
+                        <pre>{{user.dPoints}}</pre>
                     </div>
                 </div>
+                <!--<div ng-if = "updatedProfileClicked && form.$invalid">Please correct the invalid fields.</div>-->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default" id="saveDiscount" ng-click="updateProfile()">Save</button>

@@ -16,3 +16,6 @@
 .sorting-header{
     cursor:pointer;
 }
+input.ng-invalid{
+    background: rgba(255, 0, 0, 0.45);
+}

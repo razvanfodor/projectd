@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("UserProfileController", function ($scope, $routeParams, WebService) {
+app.controller("UserProfileController", function ($scope, $location, WebService) {
 
     function main() {
         initScope();
@@ -8,6 +8,8 @@ app.controller("UserProfileController", function ($scope, $routeParams, WebServi
 
     function initScope() {
         $scope.user = {};
+        $scope.updateProfile = updateProfile;
+        
         refreshUser();
     }
 
@@ -16,6 +18,19 @@ app.controller("UserProfileController", function ($scope, $routeParams, WebServi
                 .then(function (data) {
                     $scope.user = data;
                 });
+    }
+    
+    function updateProfile(){
+        var requestObj = {
+            firstName : $scope.user.firstName,
+            lastName : $scope.user.lastName,
+            email : $scope.user.email
+        };
+        WebService.put("user/profile", requestObj)
+                .then(function (){
+                    $location.path('/home');   
+                });
+            
     }
 
     main();

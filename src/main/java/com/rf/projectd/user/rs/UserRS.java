@@ -5,6 +5,7 @@
  */
 package com.rf.projectd.user.rs;
 
+import com.rf.projectd.user.rs.request.ProfileUpdateRequest;
 import com.rf.projectd.user.rs.response.UserProfileResponse;
 import com.rf.projectd.user.rs.request.NewCommentRequest;
 import com.rf.projectd.common.RestResponseService;
@@ -78,6 +79,17 @@ public class UserRS {
                     .add(new UserCommentResponse(comment, userBe.getUserById(comment.getCommenterId()).getUserName()));
         });
         return responseService.ok(profile);
+    }
+
+    @PUT
+    @Path("/profile")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void updateUserProfile(ProfileUpdateRequest profileUpdate) {
+        final User user = userContext.getLoggedInUser();
+        user.setFirstName(profileUpdate.getFirstName());
+        user.setLastName(profileUpdate.getLastName());
+        user.setEmail(profileUpdate.getEmail());
+        userBe.persistUser(user);
     }
 
     @PUT

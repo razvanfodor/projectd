@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("UserRegistrationController", function ($scope, WebService) {
+app.controller("UserRegistrationController", function ($scope, $location, WebService) {
 
     function main() {
         initScope();
@@ -13,21 +13,20 @@ app.controller("UserRegistrationController", function ($scope, WebService) {
         $scope.user.userName = '';
         $scope.user.email = '';
         $scope.user.password = '';
+        $scope.errorMessage = null;
         $scope.registerUser = registerUser;
     }
 
     function registerUser() {
-        if ($scope.user.userName) {
-            WebService.post('user/register', $scope.user, {})
-                    .then(function () {
-                        $scope.user.firstName = '';
-                        $scope.user.lastName = '';
-                        $scope.user.userName = '';
-                        $scope.user.email = '';
-                        $scope.user.password = '';
-                    });
+        $scope.errorMessage = null;
+        if ($scope.form.$invalid) {
+            return;
         }
-    };
+        WebService.post('user/register', $scope.user, {})
+                .then(function () {
+                    $location.path('/login');
+                });
+    }
 
     main();
 });

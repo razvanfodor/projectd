@@ -9,7 +9,7 @@ app.controller("UserProfileController", function ($scope, $location, WebService)
     function initScope() {
         $scope.user = {};
         $scope.updateProfile = updateProfile;
-        $scope.updatedProfileClicked = false;
+        $scope.errorMessage = null;
         
         refreshUser();
     }
@@ -22,8 +22,8 @@ app.controller("UserProfileController", function ($scope, $location, WebService)
     }
     
     function updateProfile(){
+        $scope.errorMessage = null;
         if ($scope.form.$invalid){
-            $scope.updatedProfileClicked = true;
             return;
         }
         var requestObj = {
@@ -34,6 +34,9 @@ app.controller("UserProfileController", function ($scope, $location, WebService)
         WebService.put("user/profile", requestObj)
                 .then(function (){
                     $location.path('/home');   
+                })
+                .catch(function (data){
+                    $scope.errorMessage = data.message;
                 });
             
     }

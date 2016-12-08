@@ -24,6 +24,10 @@ public class RestResponseService {
         return getNoCacheResponseBuilder(Response.Status.UNAUTHORIZED).build();
     }
     
+    public Response badRequest(String message){
+        return getNoCacheResponseBuilder(Response.Status.BAD_REQUEST).entity(new ErrorMessage(message)).build();
+    }
+    
     private Response.ResponseBuilder getNoCacheResponseBuilder( Response.Status status ) {
         CacheControl cc = new CacheControl();
         cc.setNoCache( true );
@@ -31,5 +35,17 @@ public class RestResponseService {
         cc.setMustRevalidate( true );
 
         return Response.status( status ).cacheControl( cc );
+    }
+
+    private static class ErrorMessage {
+        private final String message;
+
+        public ErrorMessage(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
 }

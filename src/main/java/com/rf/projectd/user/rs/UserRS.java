@@ -5,6 +5,8 @@
  */
 package com.rf.projectd.user.rs;
 
+import com.rf.projectd.common.PDException;
+import com.rf.projectd.user.rs.response.ProfileException;
 import com.rf.projectd.user.rs.request.ProfileUpdateRequest;
 import com.rf.projectd.user.rs.response.UserProfileResponse;
 import com.rf.projectd.user.rs.request.NewCommentRequest;
@@ -26,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.bson.types.ObjectId;
 
 /**
@@ -84,12 +87,14 @@ public class UserRS {
     @PUT
     @Path("/profile")
     @Produces(MediaType.APPLICATION_JSON)
-    public void updateUserProfile(ProfileUpdateRequest profileUpdate) {
-        final User user = userContext.getLoggedInUser();
-        user.setFirstName(profileUpdate.getFirstName());
-        user.setLastName(profileUpdate.getLastName());
-        user.setEmail(profileUpdate.getEmail());
-        userBe.persistUser(user);
+    public Response updateUserProfile(ProfileUpdateRequest profileUpdate) {
+        try{
+            userBe.updateUserProfile(profileUpdate);
+        }
+        catch(PDException e){
+            return responseService.badRequest(e.getMessage());
+        }
+        return responseService.ok("");
     }
 
     @PUT

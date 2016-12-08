@@ -25,6 +25,9 @@ app.controller("UserRegistrationController", function ($scope, $location, WebSer
         WebService.post('user/register', $scope.user, {})
                 .then(function () {
                     $location.path('/login');
+                })
+                .catch(function (data) {
+                    $scope.errorMessage = data.message;
                 });
     }
 

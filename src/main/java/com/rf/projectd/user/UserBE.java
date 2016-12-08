@@ -31,17 +31,18 @@ public class UserBE {
     @Inject
     private UserContext userContext;
 
-    public UserPersistenceResponse createNewUser(User user) {
+    public void createNewUser(User user) {
+        validateProfile(user.getFirstName(), user.getLastName(), user.getEmail());
+        validatePassword(user.getPassword());
+        
         final User foundUser = userAccess.getUserByName(user.getUserName());
 
-        final UserPersistenceResponse response = new UserPersistenceResponse();
         if (foundUser == null) {
             user.setdPoints(DEFAULT_D_POINTS);
             userAccess.persistUser(user);
         } else {
-            response.setErrorMessage("User already exists!");
+            throw new ProfileException("User already exists!");
         }
-        return response;
     }
 
     public User getUserById(ObjectId userId) {
@@ -89,6 +90,12 @@ public class UserBE {
         }
         if (email == null || !email.matches(EMAIL_PATTERN)) {
             throw new ProfileException("The email is invalid.");
+        }
+    }
+
+    private void validatePassword(String password) {
+        if (password == null || password.length() < 2){
+            throw new ProfileException("The password is too short.");
         }
     }
 }

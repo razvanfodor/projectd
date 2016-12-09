@@ -10,7 +10,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
             id: $routeParams.did,
             discountName: '',
             description: '',
-            website: '',
+            website: 'http://',
             code: '',
             price: ''
         };

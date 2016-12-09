@@ -5,6 +5,7 @@
  */
 package com.rf.projectd.discount.rs.request;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ public class DiscountRequest {
     private String code;
     private Long price;
     private List<String> tags;
+    private Date expirationDate;
 
     public String getId() {
         return id;
@@ -76,5 +78,13 @@ public class DiscountRequest {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 }

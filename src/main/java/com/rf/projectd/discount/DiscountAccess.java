@@ -6,6 +6,7 @@
 package com.rf.projectd.discount;
 
 import com.rf.projectd.discount.entity.DiscountEntity;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import org.bson.types.ObjectId;
@@ -33,11 +34,11 @@ public class DiscountAccess {
 
     }
 
-    public List<DiscountEntity> search(String searchValue, int startIndex, int numberEntriesPerPage, 
+    public List<DiscountEntity> search(String searchValue, int startIndex, int numberEntriesPerPage,
             String sortPredicate, Boolean searchReverse, ObjectId userId) {
         Query<DiscountEntity> query = createSearchQuery(userId, searchValue);
-        if (sortPredicate != null){
-                query.order((searchReverse? "-" : "") + sortPredicate);
+        if (sortPredicate != null) {
+            query.order((searchReverse ? "-" : "") + sortPredicate);
         }
 
         return query
@@ -45,23 +46,25 @@ public class DiscountAccess {
                 .limit(numberEntriesPerPage)
                 .asList();
     }
-    
-    public long searchCount(String searchValue, ObjectId userId){
+
+    public long searchCount(String searchValue, ObjectId userId) {
         return createSearchQuery(userId, searchValue).countAll();
     }
 
     private Query<DiscountEntity> createSearchQuery(ObjectId userId, String searchValue) {
         final Query<DiscountEntity> query = ds.createQuery(DiscountEntity.class);
-        query.and(query.criteria("creatorId").notEqual(userId),
+        query.and(query.criteria("expiryDate").greaterThan(new Date()),
+                query.criteria("creatorId").notEqual(userId),
                 query.or(query.criteria("discountName").containsIgnoreCase(searchValue),
                         query.criteria("website").containsIgnoreCase(searchValue),
-                        query.criteria("tags").containsIgnoreCase(searchValue)));
+                        query.criteria("tags").containsIgnoreCase(searchValue))
+        );
         return query;
     }
 
     public DiscountEntity getById(String discountId) {
         return ds.get(DiscountEntity.class, new ObjectId(discountId));
-    }   
+    }
 
     public List<DiscountEntity> getBoughtBy(ObjectId id) {
         return ds.createQuery(DiscountEntity.class)

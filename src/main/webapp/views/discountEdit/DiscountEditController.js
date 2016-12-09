@@ -18,6 +18,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
         $scope.saveText = isEditMode() ? 'Update' : 'Create';
         $scope.tags = [];
         $scope.errorMessage = null;
+        $scope.minDate = new Date().setDate(new Date().getDate() + 1); //tomorrow
 
         if (isEditMode()) {
             WebService.get("discount/details", {"did": $routeParams.did})

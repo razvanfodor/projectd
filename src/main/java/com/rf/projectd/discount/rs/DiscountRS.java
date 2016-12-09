@@ -16,6 +16,7 @@ import com.rf.projectd.user.UserBE;
 import com.rf.projectd.user.UserContext;
 import com.rf.projectd.user.entity.User;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -42,7 +43,7 @@ import org.bson.types.ObjectId;
  */
 @Stateless
 @Path("/discount")
-public class Discount {
+public class DiscountRS {
     private final String URL_REGEX="^"
             + // protocol identifier
             "(?:(?:https?|ftp)://)"
@@ -264,12 +265,23 @@ public class Discount {
         if (discount.getCode() == null || discount.getCode().isEmpty()){
             return "Invalid discount code.";
         }
-        if (discount.getExpiryDate() == null){
+        if (discount.getExpiryDate() == null || discount.getExpiryDate().before(getTomorrow())){
             return "Invalid expiration date.";
         }
         if (discount.getPrice() == null || discount.getPrice() < 0){
             return "Invalid Price.";
         }
         return null;
+    }
+
+    private static Date getTomorrow() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.add(Calendar.DATE, 1);
+        return calendar.getTime();
     }
 }

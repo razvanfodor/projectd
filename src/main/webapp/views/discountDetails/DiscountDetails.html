@@ -6,58 +6,66 @@
                 <h3 class="panel-title">Discount Details</h3>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Discount Name</label>
+                <div class="col-sm-5">
+                    <label class="control-label">Discount Name</label>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     {{discount.discountName}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Date</label>
+                <div class="col-sm-5">
+                    <label class="control-label">Date</label>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     {{discount.creationDate | date}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Discount Description</label>
+                <div class="col-sm-5">
+                    <label class="control-label">Discount Description</label>
                 </div>
-                <div class="col-sm-8" style="white-space: pre;">
+                <div class="col-sm-7">
                     {{discount.description}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Store Web Site</label>
+                <div class="col-sm-5">
+                    <label class="control-label">Store URL</label>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     {{discount.website}}
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Creator</label>
+                <div class="col-sm-5">
+                    <label class="control-label">Creator</label>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     <user name="discount.userName" id="discount.userId"/>
                 </div>
             </div>
-            <div class="row" ng-if="discount.type=='OWNED' || discount.type=='SELL'">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Price</label>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="control-label">Expiry Date</label>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
+                    {{discount.expiryDate | date}}
+                </div>
+            </div>
+            <div class="row" ng-if="discount.type=='OWNED' || discount.type=='SELL'">
+                <div class="col-sm-5">
+                    <label class="control-label">Price</label>
+                </div>
+                <div class="col-sm-7">
                     {{discount.price}}                        
                 </div>
             </div>
             <div class="row" ng-if="discount.type=='BOUGHT'">
-                <div class="col-sm-4">
-                    <label class="col-sm-2 control-label">Code</label>
+                <div class="col-sm-5">
+                    <label class="control-label">Code</label>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     {{discount.code}}
                 </div>
             </div>

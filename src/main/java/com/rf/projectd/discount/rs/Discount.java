@@ -250,7 +250,7 @@ public class Discount {
         discount.setWebsite(discountReq.getWebsite());
         discount.getTags().clear();
         discount.getTags().addAll(discountReq.getTags());
-        discount.setExpirationDate(discountReq.getExpirationDate());
+        discount.setExpiryDate(discountReq.getExpiryDate());
         return discount;
     }
 
@@ -264,7 +264,7 @@ public class Discount {
         if (discount.getCode() == null || discount.getCode().isEmpty()){
             return "Invalid discount code.";
         }
-        if (discount.getExpirationDate() == null){
+        if (discount.getExpiryDate() == null){
             return "Invalid expiration date.";
         }
         if (discount.getPrice() == null || discount.getPrice() < 0){

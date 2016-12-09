@@ -22,7 +22,7 @@ public class DiscountRequest {
     private String code;
     private Long price;
     private List<String> tags;
-    private Date expirationDate;
+    private Date expiryDate;
 
     public String getId() {
         return id;
@@ -80,11 +80,11 @@ public class DiscountRequest {
         this.tags = tags;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

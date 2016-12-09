@@ -30,7 +30,7 @@ public class DiscountResponse {
     private DiscountType type = DiscountType.SELL;
     private String code;
     private List<String> tags;
-    private Date expirationDate;
+    private Date expiryDate;
     
     
     public DiscountResponse(DiscountEntity discount, User user) {
@@ -42,7 +42,7 @@ public class DiscountResponse {
        this.price = discount.getPrice();
        this.userName = user.getUserName();
        this.userId = user.getId().toString();
-       this.expirationDate = discount.getExpirationDate();
+       this.expiryDate = discount.getExpiryDate();
        this.getTags().addAll(discount.getTags());
     }
 
@@ -125,11 +125,11 @@ public class DiscountResponse {
         return tags;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }

@@ -32,7 +32,7 @@ public class DiscountEntity implements Cloneable {
     private ObjectId creatorId;
     private List<Buyer> buyers;
     private List<String> tags;
-    private Date expirationDate;
+    private Date expiryDate;
 
     public String getCode() {
         return code;
@@ -140,12 +140,12 @@ public class DiscountEntity implements Cloneable {
         return tags;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }
     

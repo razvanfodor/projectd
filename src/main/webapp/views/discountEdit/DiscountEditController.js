@@ -26,7 +26,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
                         data.tags.forEach(function (tag) {
                             $scope.tags.push({"text": tag});
                         });
-                        $scope.discount.expirationDate = new Date(data.expirationDate);
+                        $scope.discount.expiryDate = new Date(data.expiryDate);
                     });
         }
 

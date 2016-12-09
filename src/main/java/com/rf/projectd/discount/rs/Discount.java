@@ -32,12 +32,51 @@ import javax.ws.rs.core.Response;
 import org.bson.types.ObjectId;
 
 /**
+ * Regular Expression for URL validation 
+ * Author: Diego Perini
+ * Updated: 2010/12/05 
+ * License: MIT 
+ * Copyright (c) 2010-2013 DiegoPerini (http://www.iport.it)
+ * 
  * @author XFODOR
  */
 @Stateless
 @Path("/discount")
 public class Discount {
-
+    private final String URL_REGEX="^"
+            + // protocol identifier
+            "(?:(?:https?|ftp)://)"
+            + // user:pass authentication
+            "(?:\\S+(?::\\S*)?@)?"
+            + "(?:"
+            + // IP address exclusion
+            // private & local networks
+            "(?!(?:10|127)(?:\\.\\d{1,3}){3})"
+            + "(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})"
+            + "(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})"
+            + // IP address dotted notation octets
+            // excludes loopback network 0.0.0.0
+            // excludes reserved space >= 224.0.0.0
+            // excludes network & broacast addresses
+            // (first & last IP address of each class)
+            "(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])"
+            + "(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}"
+            + "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))"
+            + "|"
+            + // host name
+            "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)"
+            + // domain name
+            "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*"
+            + // TLD identifier
+            "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))"
+            + // TLD may end with dot
+            "\\.?"
+            + ")"
+            + // port number
+            "(?::\\d{2,5})?"
+            + // resource path
+            "(?:[/?#]\\S*)?"
+            + "$";
     @Inject
     private DiscountAccess discountAccess;
 
@@ -54,22 +93,33 @@ public class Discount {
     @Path("/saveNew")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
-    public void saveNew(DiscountRequest discountReq) {
+    public Response saveNew(DiscountRequest discountReq) {
+        final String validationErrorMessage = validate(discountReq);
+        if (validationErrorMessage != null){
+            return responseService.badRequest(validationErrorMessage);
+        }
         DiscountEntity discount = toDiscountEntity(discountReq, new DiscountEntity());
         
         discount.setCreatorId(userContext.getLoggedInUser().getId());
         discount.setCreationDate(new Date());
         discountAccess.save(discount);
+        return responseService.ok();
     }
 
     @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON})
-    public void updateDiscout(DiscountRequest discountReq) {
+    public Response updateDiscout(DiscountRequest discountReq) {
+        final String validationErrorMessage = validate(discountReq);
+        if (validationErrorMessage != null) {
+            return responseService.badRequest(validationErrorMessage);
+        }
+        
         DiscountEntity discount = discountAccess.getById(discountReq.getId());
         discount = toDiscountEntity(discountReq, discount);
         discountAccess.save(discount);
+        return responseService.ok();
     }
 
     @GET
@@ -161,7 +211,7 @@ public class Discount {
         userBe.persistUser(seller);
         userBe.persistUser(buyer);
 
-        return responseService.ok(null);
+        return responseService.ok();
     }
 
     private boolean isBuyer(User user, DiscountEntity discount) {
@@ -198,7 +248,24 @@ public class Discount {
         discount.setCode(discountReq.getCode());
         discount.setPrice(discountReq.getPrice());
         discount.setWebsite(discountReq.getWebsite());
+        discount.getTags().clear();
         discount.getTags().addAll(discountReq.getTags());
         return discount;
+    }
+
+    private String validate(DiscountRequest discount) {
+        if (discount.getDiscountName() == null || discount.getDiscountName().isEmpty()){
+            return "Invalid Name.";
+        }
+        if (discount.getWebsite() == null || discount.getWebsite().isEmpty() || !discount.getWebsite().matches(URL_REGEX)){
+            return "Invalid Store URL.";
+        }
+        if (discount.getCode() == null || discount.getCode().isEmpty()){
+            return "Invalid discount code.";
+        }
+        if (discount.getPrice() == null || discount.getPrice() < 0){
+            return "Invalid Price.";
+        }
+        return null;
     }
 }

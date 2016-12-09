@@ -17,13 +17,14 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
         $scope.title = isEditMode() ? 'Edit Discount' : 'Create New Discount';
         $scope.saveText = isEditMode() ? 'Update' : 'Create';
         $scope.tags = [];
+        $scope.errorMessage = null;
 
         if (isEditMode()) {
             WebService.get("discount/details", {"did": $routeParams.did})
                     .then(function (data) {
                         $scope.discount = data;
-                        data.tags.forEach(function (tag){
-                            $scope.tags.push({"text" : tag});
+                        data.tags.forEach(function (tag) {
+                            $scope.tags.push({"text": tag});
                         });
                     });
         }
@@ -33,6 +34,10 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
     }
 
     function saveDiscount() {
+        $scope.errorMessage = null;
+        if ($scope.form.$invalid) {
+            return;
+        }
         $scope.discount.tags = [];
         $scope.tags.forEach(function (tag) {
             $scope.discount.tags.push(tag.text);
@@ -41,12 +46,17 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
             WebService.put('discount/update', $scope.discount)
                     .then(function () {
                         $location.path('/viewMyDiscounts');
+                    })
+                    .catch(function (data) {
+                        $scope.errorMessage = data.message;
                     });
-        }
-        else {
+        } else {
             WebService.post('discount/saveNew', $scope.discount)
                     .then(function () {
                         $location.path('/viewMyDiscounts');
+                    })
+                    .catch(function (data) {
+                        $scope.errorMessage = data.message;
                     });
         }
     }

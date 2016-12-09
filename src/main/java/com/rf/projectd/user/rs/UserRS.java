@@ -57,7 +57,7 @@ public class UserRS {
         catch(PDException e){
             return responseService.badRequest(e.getMessage());
         }
-        return responseService.ok("");
+        return responseService.ok();
     }
 
     @GET
@@ -98,7 +98,7 @@ public class UserRS {
         catch(PDException e){
             return responseService.badRequest(e.getMessage());
         }
-        return responseService.ok("");
+        return responseService.ok();
     }
 
     @PUT

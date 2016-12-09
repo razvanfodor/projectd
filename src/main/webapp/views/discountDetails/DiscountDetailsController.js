@@ -8,6 +8,8 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, WebS
 
     function initScope() {
         $scope.discount = {};
+        $scope.tags = [];
+
         refreshDiscount();
         $scope.buyDiscount = buyDiscount;
     }
@@ -23,6 +25,9 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, WebS
         WebService.get("discount/details", {"did": $routeParams.did})
                 .then(function (data) {
                     $scope.discount = data;
+                    data.tags.forEach(function (tag) {
+                        $scope.tags.push({"text": tag});
+                    });
                 });
     }
 

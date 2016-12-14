@@ -84,21 +84,21 @@ app.factory('WebService', function ($http, $q, $sessionStorage) {
         }
 
         $http($httpConfig)
-            .success(buildSuccessHandler(deferred))
-            .error(buildErrorHandler(deferred));
+            .then(buildSuccessHandler(deferred))
+            .catch(buildErrorHandler(deferred));
 
         return deferred.promise;
     }
 
     function buildSuccessHandler(deferred) {
-        return function (data) {
-            deferred.resolve(data);
+        return function (response) {
+            deferred.resolve(response.data);
         };
     }
 
     function buildErrorHandler(deferred) {
-        return function (data) {
-            deferred.reject(data);
+        return function (response) {
+            deferred.reject(response.data);
         };
     }
     

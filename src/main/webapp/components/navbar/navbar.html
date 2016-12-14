@@ -14,25 +14,25 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#/welcome">Home</a>
+                    <a href="#!/welcome">Home</a>
                 </li>
                 <li>
-                    <a ng-if="!sessionStorage.authToken" href="#/login">Log in</a>
+                    <a ng-if="!sessionStorage.authToken" href="#!/login">Log in</a>
                 </li>
                 <li>
-                    <a ng-if="sessionStorage.authToken" href="#/viewMyDiscounts">My Discounts</a>
+                    <a ng-if="sessionStorage.authToken" href="#!/viewMyDiscounts">My Discounts</a>
                 </li>
                 <li>
-                    <a ng-if="sessionStorage.authToken" href="#/newDiscount">Add New Discount</a>
+                    <a ng-if="sessionStorage.authToken" href="#!/newDiscount">Add New Discount</a>
                 </li>
                 <li>
-                    <a ng-if="sessionStorage.authToken" href="#/userProfile">Profile</a>
+                    <a ng-if="sessionStorage.authToken" href="#!/userProfile">Profile</a>
                 </li>
                 <li>
                     <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
                 </li>
                 <li>
-                    <a ng-if="!sessionStorage.authToken" href="#/registerUser">Sign up</a>
+                    <a ng-if="!sessionStorage.authToken" href="#!/registerUser">Sign up</a>
                 </li>
             </ul>
         </div>

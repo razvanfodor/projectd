@@ -24,9 +24,12 @@
     "angular-mocks": "1.3.0-beta.14",
     "angular-route": "*",
     "components-font-awesome": "^4.6.3",
-    "ngstorage" : "*",
-    "angular-smart-table" : "*",
-    "angular-bootstrap" : "*",
-    "ng-tags-input" : "^3.1.1"
+    "ngstorage": "*",
+    "angular-smart-table": "*",
+    "angular-bootstrap": "*",
+    "ng-tags-input": "^3.1.1"
+  },
+  "resolutions": {
+    "angular": "1.6.0"
   }
 }

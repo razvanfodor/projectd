@@ -62,6 +62,14 @@
                     {{discount.expiryDate | date}}
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="control-label">Sell Type</label>
+                </div>
+                <div class="col-sm-7">
+                    {{sellType}}
+                </div>
+            </div>
             <div class="row" ng-if="discount.type=='OWNED' || discount.type=='SELL'">
                 <div class="col-sm-5">
                     <label class="control-label">Price</label>

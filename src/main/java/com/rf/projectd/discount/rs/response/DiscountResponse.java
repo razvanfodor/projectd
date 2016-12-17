@@ -31,6 +31,7 @@ public class DiscountResponse {
     private String code;
     private List<String> tags;
     private Date expiryDate;
+    private Boolean singleSell = false;
     
     
     public DiscountResponse(DiscountEntity discount, User user) {
@@ -44,6 +45,7 @@ public class DiscountResponse {
        this.userId = user.getId().toString();
        this.expiryDate = discount.getExpiryDate();
        this.getTags().addAll(discount.getTags());
+       this.singleSell = discount.isSingleSell();
     }
 
     public String getId() {
@@ -131,5 +133,13 @@ public class DiscountResponse {
 
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public Boolean getSingleSell() {
+        return singleSell;
+    }
+
+    public void setSingleSell(Boolean singleSell) {
+        this.singleSell = singleSell;
     }
 }

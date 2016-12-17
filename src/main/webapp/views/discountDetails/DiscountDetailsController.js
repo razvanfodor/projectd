@@ -9,6 +9,7 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, WebS
     function initScope() {
         $scope.discount = {};
         $scope.tags = [];
+        $scope.sellType = '';
 
         refreshDiscount();
         $scope.buyDiscount = buyDiscount;
@@ -28,6 +29,7 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, WebS
                     data.tags.forEach(function (tag) {
                         $scope.tags.push({"text": tag});
                     });
+                    $scope.sellType = data.singleSell ? 'Single Time' : 'Multiple Times';
                 });
     }
 

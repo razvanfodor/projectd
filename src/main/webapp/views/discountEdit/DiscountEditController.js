@@ -19,8 +19,17 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
         $scope.tags = [];
         $scope.errorMessage = null;
         $scope.minDate = new Date().setDate(new Date().getDate() + 1); //tomorrow
+        $scope.sellType = 'multiple';
 
         if (isEditMode()) {
+            refreshDiscount();
+        }
+
+        $scope.saveDiscount = saveDiscount;
+        $scope.isEditMode = isEditMode;
+    }
+    
+    function refreshDiscount(){
             WebService.get("discount/details", {"did": $routeParams.did})
                     .then(function (data) {
                         $scope.discount = data;
@@ -28,11 +37,8 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
                             $scope.tags.push({"text": tag});
                         });
                         $scope.discount.expiryDate = new Date(data.expiryDate);
+                        $scope.sellType = data.singleSell ? 'single' : 'multiple';
                     });
-        }
-
-        $scope.saveDiscount = saveDiscount;
-        $scope.isEditMode = isEditMode;
     }
 
     function saveDiscount() {
@@ -40,6 +46,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
         if ($scope.form.$invalid) {
             return;
         }
+        $scope.discount.singleSell = 'single' === $scope.sellType;
         $scope.discount.tags = [];
         $scope.tags.forEach(function (tag) {
             $scope.discount.tags.push(tag.text);

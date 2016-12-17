@@ -23,6 +23,7 @@ public class DiscountRequest {
     private Long price;
     private List<String> tags;
     private Date expiryDate;
+    private Boolean singleSell = false;
 
     public String getId() {
         return id;
@@ -86,5 +87,13 @@ public class DiscountRequest {
 
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public Boolean isSingleSell() {
+        return singleSell;
+    }
+
+    public void setSingleSell(Boolean singleSell) {
+        this.singleSell = singleSell;
     }
 }

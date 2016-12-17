@@ -5,6 +5,7 @@
  */
 package com.rf.projectd.discount.rs;
 
+import com.rf.projectd.common.PDException;
 import com.rf.projectd.common.RestResponseService;
 import com.rf.projectd.discount.DiscountAccess;
 import com.rf.projectd.discount.entity.DiscountEntity;
@@ -33,18 +34,17 @@ import javax.ws.rs.core.Response;
 import org.bson.types.ObjectId;
 
 /**
- * Regular Expression for URL validation 
- * Author: Diego Perini
- * Updated: 2010/12/05 
- * License: MIT 
- * Copyright (c) 2010-2013 DiegoPerini (http://www.iport.it)
- * 
+ * Regular Expression for URL validation Author: Diego Perini Updated:
+ * 2010/12/05 License: MIT Copyright (c) 2010-2013 DiegoPerini
+ * (http://www.iport.it)
+ *
  * @author XFODOR
  */
 @Stateless
 @Path("/discount")
 public class DiscountRS {
-    private final String URL_REGEX="^"
+
+    private final String URL_REGEX = "^"
             + // protocol identifier
             "(?:(?:https?|ftp)://)"
             + // user:pass authentication
@@ -96,11 +96,11 @@ public class DiscountRS {
     @Consumes({MediaType.APPLICATION_JSON})
     public Response saveNew(DiscountRequest discountReq) {
         final String validationErrorMessage = validate(discountReq);
-        if (validationErrorMessage != null){
+        if (validationErrorMessage != null) {
             return responseService.badRequest(validationErrorMessage);
         }
         DiscountEntity discount = toDiscountEntity(discountReq, new DiscountEntity());
-        
+
         discount.setCreatorId(userContext.getLoggedInUser().getId());
         discount.setCreationDate(new Date());
         discountAccess.save(discount);
@@ -116,7 +116,7 @@ public class DiscountRS {
         if (validationErrorMessage != null) {
             return responseService.badRequest(validationErrorMessage);
         }
-        
+
         DiscountEntity discount = discountAccess.getById(discountReq.getId());
         discount = toDiscountEntity(discountReq, discount);
         discountAccess.save(discount);
@@ -137,7 +137,6 @@ public class DiscountRS {
         return getCreatedBy(userContext.getLoggedInUser().getId());
     }
 
-
     @GET
     @Path("/getBought")
     @Produces(MediaType.APPLICATION_JSON)
@@ -154,7 +153,7 @@ public class DiscountRS {
             @QueryParam("numberEntriesPerPage") Integer numberEntriesPerPage,
             @QueryParam("sortPredicate") String sortPredicate,
             @QueryParam("sortReverse") Boolean sortReverse) {
-        sortReverse = sortReverse != null ? sortReverse : false; 
+        sortReverse = sortReverse != null ? sortReverse : false;
         final ObjectId userId = userContext.getLoggedInUser().getId();
         final List<DiscountEntity> discounts = discountAccess.search(searchValue,
                 startIndex,
@@ -164,7 +163,7 @@ public class DiscountRS {
                 userId);
         List<DiscountResponse> responses = transformToDiscountResponses(discounts);
         final long searchCount = discountAccess.searchCount(searchValue, userId);
-        
+
         return responseService.ok(new SearchResult(responses, searchCount));
     }
 
@@ -183,8 +182,10 @@ public class DiscountRS {
         } else if (isBuyer(currentUser, discount)) {
             response.setType(DiscountType.BOUGHT);
             response.setCode(discount.getCode());
-        } else {
+        } else if (!discount.isSingleSell() || discount.getBuyers().size() < 1) {
             response.setType(DiscountType.SELL);
+        } else {
+            throw new PDException("No rights to discount.");
         }
         return responseService.ok(response);
     }
@@ -196,7 +197,10 @@ public class DiscountRS {
         final DiscountEntity discount = discountAccess.getById(discountId);
         User buyer = userContext.getLoggedInUser();
         if (buyer.getdPoints() < discount.getPrice()) {
-            throw new RuntimeException("Insuficient fonds.");
+            throw new PDException("Insuficient fonds.");
+        }
+        if (discount.isSingleSell() && !discount.getBuyers().isEmpty()){
+            throw new PDException("Discount is already sold.");
         }
 
         User seller = userBe.getUserById(discount.getCreatorId());
@@ -225,14 +229,14 @@ public class DiscountRS {
             User creatorUser = userBe.getUserById(discount.getCreatorId());
             final DiscountResponse discountResponse = new DiscountResponse(discount, creatorUser);
             final User loggedInUser = userContext.getLoggedInUser();
-            if (!creatorUser.equals(loggedInUser)){
-                for (Buyer buyer : discount.getBuyers()){
-                    if (loggedInUser.getId().equals(buyer.getUserId())){
+            if (!creatorUser.equals(loggedInUser)) {
+                for (Buyer buyer : discount.getBuyers()) {
+                    if (loggedInUser.getId().equals(buyer.getUserId())) {
                         discountResponse.setBuyDate(buyer.getDate());
                     }
                 }
             }
-            
+
             responses.add(discountResponse);
         }
         return responses;
@@ -242,8 +246,8 @@ public class DiscountRS {
         final List<DiscountEntity> discounts = discountAccess.getCreatedBy(userId);
         return responseService.ok(transformToDiscountResponses(discounts));
     }
-    
-    private DiscountEntity toDiscountEntity(DiscountRequest discountReq, DiscountEntity discount) {        
+
+    private DiscountEntity toDiscountEntity(DiscountRequest discountReq, DiscountEntity discount) {
         discount.setDiscountName(discountReq.getDiscountName());
         discount.setDescription(discountReq.getDescription());
         discount.setCode(discountReq.getCode());
@@ -252,23 +256,24 @@ public class DiscountRS {
         discount.getTags().clear();
         discount.getTags().addAll(discountReq.getTags());
         discount.setExpiryDate(discountReq.getExpiryDate());
+        discount.setSingleSell(discountReq.isSingleSell());
         return discount;
     }
 
     private String validate(DiscountRequest discount) {
-        if (discount.getDiscountName() == null || discount.getDiscountName().isEmpty()){
+        if (discount.getDiscountName() == null || discount.getDiscountName().isEmpty()) {
             return "Invalid Name.";
         }
-        if (discount.getWebsite() == null || discount.getWebsite().isEmpty() || !discount.getWebsite().matches(URL_REGEX)){
+        if (discount.getWebsite() == null || discount.getWebsite().isEmpty() || !discount.getWebsite().matches(URL_REGEX)) {
             return "Invalid Store URL.";
         }
-        if (discount.getCode() == null || discount.getCode().isEmpty()){
+        if (discount.getCode() == null || discount.getCode().isEmpty()) {
             return "Invalid discount code.";
         }
-        if (discount.getExpiryDate() == null || discount.getExpiryDate().before(getTomorrow())){
+        if (discount.getExpiryDate() == null || discount.getExpiryDate().before(getTomorrow())) {
             return "Invalid expiration date.";
         }
-        if (discount.getPrice() == null || discount.getPrice() < 0){
+        if (discount.getPrice() == null || discount.getPrice() < 0) {
             return "Invalid Price.";
         }
         return null;

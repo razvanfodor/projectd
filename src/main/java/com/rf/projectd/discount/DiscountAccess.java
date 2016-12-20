@@ -54,12 +54,14 @@ public class DiscountAccess {
     private Query<DiscountEntity> createSearchQuery(ObjectId userId, String searchValue) {
         final Query<DiscountEntity> query = ds.createQuery(DiscountEntity.class);
         query.and(query.criteria("expiryDate").greaterThan(new Date()),
-                query.criteria("creatorId").notEqual(userId),
                 query.or(query.criteria("singleSell").equal(false), query.criteria("buyers").sizeEq(0)),
                 query.or(query.criteria("discountName").containsIgnoreCase(searchValue),
                         query.criteria("website").containsIgnoreCase(searchValue),
                         query.criteria("tags").containsIgnoreCase(searchValue))
         );
+        if (userId != null){
+            query.and(query.criteria("creatorId").notEqual(userId));
+        }
         return query;
     }
 

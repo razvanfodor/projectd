@@ -11,5 +11,6 @@ package com.rf.projectd.discount.rs.response;
 public enum DiscountType {
     OWNED,
     SELL,
-    BOUGHT;
+    BOUGHT,
+    DEMO;
 }

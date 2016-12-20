@@ -101,7 +101,7 @@ public class DiscountRS {
         }
         DiscountEntity discount = toDiscountEntity(discountReq, new DiscountEntity());
 
-        discount.setCreatorId(userContext.getLoggedInUser().getId());
+        discount.setCreatorId(getUserId());
         discount.setCreationDate(new Date());
         discountAccess.save(discount);
         return responseService.ok();
@@ -134,14 +134,14 @@ public class DiscountRS {
     @Path("/getMy")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreatedByLoggedInUser() {
-        return getCreatedBy(userContext.getLoggedInUser().getId());
+        return getCreatedBy(getUserId());
     }
 
     @GET
     @Path("/getBought")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBoughtByUser() {
-        final List<DiscountEntity> discounts = discountAccess.getBoughtBy(userContext.getLoggedInUser().getId());
+        final List<DiscountEntity> discounts = discountAccess.getBoughtBy(getUserId());
         return responseService.ok(transformToDiscountResponses(discounts));
     }
 
@@ -154,7 +154,7 @@ public class DiscountRS {
             @QueryParam("sortPredicate") String sortPredicate,
             @QueryParam("sortReverse") Boolean sortReverse) {
         sortReverse = sortReverse != null ? sortReverse : false;
-        final ObjectId userId = userContext.getLoggedInUser().getId();
+        final ObjectId userId = getUserId();
         final List<DiscountEntity> discounts = discountAccess.search(searchValue,
                 startIndex,
                 numberEntriesPerPage,
@@ -167,6 +167,14 @@ public class DiscountRS {
         return responseService.ok(new SearchResult(responses, searchCount));
     }
 
+    private ObjectId getUserId() {
+        final User user = userContext.getLoggedInUser();
+        if (user == null){
+            return null;
+        }
+        return user.getId();
+    }
+
     @GET
     @Path("/details")
     @Produces(MediaType.APPLICATION_JSON)
@@ -176,7 +184,10 @@ public class DiscountRS {
         final DiscountResponse response = new DiscountResponse(discount, user);
         final User currentUser = userContext.getLoggedInUser();
 
-        if (currentUser.equals(user)) {
+        if (currentUser == null){
+            response.setType(DiscountType.DEMO);
+            cleanupDemoDiscountDetails(response);
+        }else if (currentUser.equals(user)) {
             response.setType(DiscountType.OWNED);
             response.setCode(discount.getCode());
         } else if (isBuyer(currentUser, discount)) {
@@ -188,6 +199,15 @@ public class DiscountRS {
             throw new PDException("No rights to discount.");
         }
         return responseService.ok(response);
+    }
+
+    private void cleanupDemoDiscountDetails(final DiscountResponse response) {
+        response.setCreationDate(null);
+        response.getTags().clear();
+        response.setUserId(null);
+        response.setUserName(null);
+        response.setExpiryDate(null);
+        response.setSingleSell(Boolean.FALSE);
     }
 
     @PUT
@@ -229,7 +249,7 @@ public class DiscountRS {
             User creatorUser = userBe.getUserById(discount.getCreatorId());
             final DiscountResponse discountResponse = new DiscountResponse(discount, creatorUser);
             final User loggedInUser = userContext.getLoggedInUser();
-            if (!creatorUser.equals(loggedInUser)) {
+            if (loggedInUser != null && !creatorUser.equals(loggedInUser)) {
                 for (Buyer buyer : discount.getBuyers()) {
                     if (loggedInUser.getId().equals(buyer.getUserId())) {
                         discountResponse.setBuyDate(buyer.getDate());

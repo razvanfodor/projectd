@@ -13,7 +13,7 @@
                     {{discount.discountName}}
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="discount.type != 'DEMO'">
                 <div class="col-sm-5">
                     <label class="control-label">Date</label>
                 </div>
@@ -37,7 +37,7 @@
                     {{discount.website}}
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="discount.type == 'OWNED'">
                 <div class="col-sm-5">
                     <label class="control-label">Tags</label>
                 </div>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             
-            <div class="row">
+            <div class="row" ng-if="discount.type != 'DEMO'">
                 <div class="col-sm-5">
                     <label class="control-label">Creator</label>
                 </div>
@@ -54,7 +54,7 @@
                     <user name="discount.userName" id="discount.userId"/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="discount.type != 'DEMO'">
                 <div class="col-sm-5">
                     <label class="control-label">Expiry Date</label>
                 </div>
@@ -62,7 +62,7 @@
                     {{discount.expiryDate | date}}
                 </div>
             </div>
-            <div class="row">
+            <div class="row" ng-if="discount.type != 'DEMO'">
                 <div class="col-sm-5">
                     <label class="control-label">Sell Type</label>
                 </div>
@@ -70,7 +70,7 @@
                     {{sellType}}
                 </div>
             </div>
-            <div class="row" ng-if="discount.type=='OWNED' || discount.type=='SELL'">
+            <div class="row" ng-if="discount.type == 'OWNED' || discount.type == 'SELL'">
                 <div class="col-sm-5">
                     <label class="control-label">Price</label>
                 </div>
@@ -78,7 +78,7 @@
                     {{discount.price}}                        
                 </div>
             </div>
-            <div class="row" ng-if="discount.type=='BOUGHT'">
+            <div class="row" ng-if="discount.type == 'BOUGHT'">
                 <div class="col-sm-5">
                     <label class="control-label">Code</label>
                 </div>

@@ -23,6 +23,7 @@ import javax.ws.rs.ext.Provider;
 public class RestRequestFilter implements ContainerRequestFilter {
     
     private final static Logger log = Logger.getLogger( RestRequestFilter.class.getName() );
+    private final static String[] UNAUTHENGICATED_PATHS = {"authentication/login", "user/register", "discount/search", "discount/details"}; 
 
     @Inject
     private AuthenticationBE authBe;
@@ -39,12 +40,21 @@ public class RestRequestFilter implements ContainerRequestFilter {
             return;
         }
         
-        if ( !path.startsWith( "authentication/login" ) &&  !path.startsWith( "user/register" )) {
+        if ( isAuthenticationRequired(path)) {
             String authToken = requestCtx.getHeaderString( AuthenticationBE.AUTH_TOKEN );
             if (!authBe.isTokenValid(authToken)){
                 requestCtx.abortWith(Response.status( Response.Status.UNAUTHORIZED ).build());
             }
         }
+    }
+
+    private static boolean isAuthenticationRequired(String path) {
+        for (String unauthPath : UNAUTHENGICATED_PATHS){
+            if (path.startsWith(unauthPath)){
+                return false;
+            }
+        }
+        return true;
     }
     
 }

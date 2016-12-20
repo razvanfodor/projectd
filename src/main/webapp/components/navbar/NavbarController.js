@@ -1,4 +1,4 @@
-app.controller('NavbarController', function ($scope, $sessionStorage) {    
+app.controller('NavbarController', function ($scope, $sessionStorage, $location) {    
     function main() {
         initScope();
     }
@@ -10,6 +10,7 @@ app.controller('NavbarController', function ($scope, $sessionStorage) {
     
     function logout(){
         delete $sessionStorage.authToken;
+        $location.path('/').search("");
     }
     
     main();    

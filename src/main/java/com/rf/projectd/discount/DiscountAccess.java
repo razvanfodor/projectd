@@ -36,6 +36,7 @@ public class DiscountAccess {
 
     public List<DiscountEntity> search(String searchValue, int startIndex, int numberEntriesPerPage,
             String sortPredicate, Boolean searchReverse, ObjectId userId) {
+        
         Query<DiscountEntity> query = createSearchQuery(userId, searchValue);
         if (sortPredicate != null) {
             query.order((searchReverse ? "-" : "") + sortPredicate);

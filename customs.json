@@ -1,19 +1,25 @@
 {
-    "elements": {
-        "search": {},
-        "navbar": {},
-        "discount-list": {},
-        "user": {}
-    },
     "attributes": {
-        "st-pagination": {
-            "context": "td"
+        "ui-sref": {
+            "context": "a"
+        },
+        "ui-view": {
+            "context": "div"
         },
         "st-sort": {
             "context": "th"
         },
+        "st-pagination": {
+            "context": "td"
+        },
         "st-table": {
             "context": "table"
         }
+    },
+    "elements": {
+        "search": {},
+        "discount-list": {},
+        "user": {},
+        "navbar": {}
     }
 }

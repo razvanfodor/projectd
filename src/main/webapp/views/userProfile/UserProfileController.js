@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("UserProfileController", function ($scope, $location, WebService) {
+app.controller("UserProfileController", function ($scope, $state, WebService) {
 
     function main() {
         initScope();
@@ -33,7 +33,7 @@ app.controller("UserProfileController", function ($scope, $location, WebService)
         };
         WebService.put("user/profile", requestObj)
                 .then(function (){
-                    $location.path('/home');   
+                    $state.go('home');   
                 })
                 .catch(function (data){
                     $scope.errorMessage = data.message;

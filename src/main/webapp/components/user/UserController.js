@@ -1,4 +1,4 @@
-app.controller('UserController', function ($scope, $location) {
+app.controller('UserController', function ($scope, $state) {
     function main() {
         initScope();
     }
@@ -8,7 +8,7 @@ app.controller('UserController', function ($scope, $location) {
     }
 
     function goToUserDetails(userId) {
-        $location.path('userDetails').search("uid=" + userId);
+        $state.go('userDetails', {uid : userId});
     }
 
     main();

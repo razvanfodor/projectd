@@ -7,32 +7,32 @@
                 <span class="sr-only">Toggle navigation</span>
                 Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="index.html">Welcome To Project D</a>
+            <a class="navbar-brand" ui-sref="home">Welcome To Project D</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#!/welcome">Home</a>
+                    <a ui-sref="home">Home</a>
                 </li>
                 <li>
-                    <a ng-if="!sessionStorage.authToken" href="#!/login">Log in</a>
+                    <a ng-if="!sessionStorage.authToken" ui-sref="login">Log in</a>
                 </li>
                 <li>
-                    <a ng-if="sessionStorage.authToken" href="#!/viewMyDiscounts">My Discounts</a>
+                    <a ng-if="sessionStorage.authToken" ui-sref="viewMyDiscounts">My Discounts</a>
                 </li>
                 <li>
-                    <a ng-if="sessionStorage.authToken" href="#!/newDiscount">Add New Discount</a>
+                    <a ng-if="sessionStorage.authToken" ui-sref="newDiscount">Add New Discount</a>
                 </li>
                 <li>
-                    <a ng-if="sessionStorage.authToken" href="#!/userProfile">Profile</a>
+                    <a ng-if="sessionStorage.authToken" ui-sref="userProfile">Profile</a>
                 </li>
                 <li>
                     <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
                 </li>
                 <li>
-                    <a ng-if="!sessionStorage.authToken" href="#!/registerUser">Sign up</a>
+                    <a ng-if="!sessionStorage.authToken" ui-sref="registerUser">Sign up</a>
                 </li>
             </ul>
         </div>

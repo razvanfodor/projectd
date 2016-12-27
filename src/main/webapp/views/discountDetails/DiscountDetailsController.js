@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("DiscountDetailsController", function ($scope, $routeParams, WebService) {
+app.controller("DiscountDetailsController", function ($scope, $stateParams, WebService) {
 
     function main() {
         initScope();
@@ -16,14 +16,14 @@ app.controller("DiscountDetailsController", function ($scope, $routeParams, WebS
     }
     
     function buyDiscount() {
-        WebService.put("discount/buy", $routeParams.did)
+        WebService.put("discount/buy", $stateParams.did)
                 .then(function () {
                     refreshDiscount();
                 });
     }
     
     function refreshDiscount() {
-        WebService.get("discount/details", {"did": $routeParams.did})
+        WebService.get("discount/details", {"did": $stateParams.did})
                 .then(function (data) {
                     $scope.discount = data;
                     data.tags.forEach(function (tag) {

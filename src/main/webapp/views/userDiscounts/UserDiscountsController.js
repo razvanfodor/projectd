@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("UserDiscountsController", function ($scope, $location, WebService) {
+app.controller("UserDiscountsController", function ($scope, $state, WebService) {
 
     function main() {
         initScope();
@@ -22,11 +22,11 @@ app.controller("UserDiscountsController", function ($scope, $location, WebServic
     }
     
     function goToDetails(discountId) {
-        $location.path('discountDetails').search("did=" + discountId);
+        $state.go('discountDetails', {'did' : discountId});
     }
     
     function editDiscount(discountId) {
-        $location.path('editDiscount').search("did=" + discountId);
+        $state.go('editDiscount', {'did': discountId});
     }
 
     main();

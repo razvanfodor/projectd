@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("UserRegistrationController", function ($scope, $location, WebService) {
+app.controller("UserRegistrationController", function ($scope, $state, WebService) {
 
     function main() {
         initScope();
@@ -24,7 +24,7 @@ app.controller("UserRegistrationController", function ($scope, $location, WebSer
         }
         WebService.post('user/register', $scope.user, {})
                 .then(function () {
-                    $location.path('/login');
+                    $state.go('login');
                 })
                 .catch(function (data) {
                     $scope.errorMessage = data.message;

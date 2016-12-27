@@ -1,4 +1,4 @@
-app.controller('SearchController', function ($scope, $location, $sessionStorage) {
+app.controller('SearchController', function ($scope, $state, $sessionStorage) {
     function main() {
         initScope();
     }
@@ -10,7 +10,7 @@ app.controller('SearchController', function ($scope, $location, $sessionStorage)
     }
 
     function search() {
-        $location.path('displaySearchResults').search("searchTerm="+$scope.searchTerm);
+        $state.go('displaySearchResults', {searchTerm : $scope.searchTerm});
     }
 
     main();

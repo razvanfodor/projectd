@@ -1,13 +1,13 @@
 /* global app */
 
-app.controller('DiscountEditController', function ($scope, $location, $routeParams, WebService) {
+app.controller('DiscountEditController', function ($scope, $state, $stateParams, WebService) {
     function main() {
         initScope();
     }
 
     function initScope() {
         $scope.discount = {
-            id: $routeParams.did,
+            id: $stateParams.did,
             discountName: '',
             description: '',
             website: 'http://',
@@ -30,7 +30,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
     }
     
     function refreshDiscount(){
-            WebService.get("discount/details", {"did": $routeParams.did})
+            WebService.get("discount/details", {"did": $stateParams.did})
                     .then(function (data) {
                         $scope.discount = data;
                         data.tags.forEach(function (tag) {
@@ -54,7 +54,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
         if (isEditMode()) {
             WebService.put('discount/update', $scope.discount)
                     .then(function () {
-                        $location.path('/viewMyDiscounts');
+                        $state.go('viewMyDiscounts');
                     })
                     .catch(function (data) {
                         $scope.errorMessage = data.message;
@@ -62,7 +62,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
         } else {
             WebService.post('discount/saveNew', $scope.discount)
                     .then(function () {
-                        $location.path('/viewMyDiscounts');
+                        $state.go('viewMyDiscounts');
                     })
                     .catch(function (data) {
                         $scope.errorMessage = data.message;
@@ -71,7 +71,7 @@ app.controller('DiscountEditController', function ($scope, $location, $routePara
     }
 
     function isEditMode() {
-        return typeof $routeParams.did !== 'undefined';
+        return typeof $stateParams.did !== 'undefined';
     }
 
     main();

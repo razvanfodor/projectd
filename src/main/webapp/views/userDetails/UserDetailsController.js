@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("UserDetailsController", function ($scope, $routeParams, $location, WebService) {
+app.controller("UserDetailsController", function ($scope, $stateParams, $state, WebService) {
 
     function main() {
         initScope();
@@ -12,7 +12,7 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
         $scope.discounts = {};
         $scope.addComment = addComment;
         $scope.newComment = {
-            userId : $routeParams.uid,
+            userId : $stateParams.uid,
             rating : 1,
             summary : '',
                 text : ''           
@@ -24,14 +24,14 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
     }
 
     function getUserDetails() {
-        WebService.get("user/details", {"uid": $routeParams.uid})
+        WebService.get("user/details", {"uid": $stateParams.uid})
                 .then(function (data) {
                     $scope.user = data;
                 });
     }
 
     function getUserDiscounts() {
-        WebService.get("discount/getCreatedBy", {"uid": $routeParams.uid})
+        WebService.get("discount/getCreatedBy", {"uid": $stateParams.uid})
                 .then(function (data) {
                     $scope.discounts = data;
                 });
@@ -45,7 +45,7 @@ app.controller("UserDetailsController", function ($scope, $routeParams, $locatio
     }
     
     function buy(discountId) {
-        $location.path('discountDetails').search("did=" + discountId);
+        $state.go('discountDetails', {did : discountId});
     }
 
     main();

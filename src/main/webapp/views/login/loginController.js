@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("LoginController", function ($scope, $location, $sessionStorage, WebService) {
+app.controller("LoginController", function ($scope, $state, $sessionStorage, WebService) {
 
         function main() {
             initScope();
@@ -18,7 +18,7 @@ app.controller("LoginController", function ($scope, $location, $sessionStorage, 
                 WebService.post('authentication/login', $scope.user)
                         .then(function(data){
                             $sessionStorage.authToken = data.authToken;
-                            $location.path('#!/welcome');
+                            $state.go('home');
                         });
             }
         };

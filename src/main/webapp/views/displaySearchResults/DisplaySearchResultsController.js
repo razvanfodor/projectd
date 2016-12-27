@@ -1,6 +1,6 @@
 /* global app */
 
-app.controller("DisplaySearchResultsController", function ($scope, $routeParams, $location, WebService) {
+app.controller("DisplaySearchResultsController", function ($scope, $stateParams, $state, WebService) {
 
         function main() {
             initScope();            
@@ -14,7 +14,7 @@ app.controller("DisplaySearchResultsController", function ($scope, $routeParams,
         }
         
         function buy(discountId){
-            $location.path('discountDetails').search("did="+discountId);
+            $state.go('discountDetails', {did : discountId});
         }
         
         function searchDiscounts(tableState){
@@ -25,7 +25,7 @@ app.controller("DisplaySearchResultsController", function ($scope, $routeParams,
             var sortReverse = tableState.sort.reverse;
 
             WebService.get("discount/search", {
-               "searchValue" : $routeParams.searchTerm,
+               "searchValue" : $stateParams.searchTerm,
                "startIndex"  : startIndex,
                "numberEntriesPerPage" : numberEntriesPerPage,
                "sortPredicate" : sortPredicate,

@@ -45,7 +45,7 @@ app.controller("UserDetailsController", function ($scope, $stateParams, $state, 
     }
     
     function buy(discountId) {
-        $state.go('discountDetails', {did : discountId});
+        $state.go('app.discountDetails', {did : discountId});
     }
 
     main();

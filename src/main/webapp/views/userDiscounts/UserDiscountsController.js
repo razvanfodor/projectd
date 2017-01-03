@@ -22,11 +22,11 @@ app.controller("UserDiscountsController", function ($scope, $state, WebService) 
     }
     
     function goToDetails(discountId) {
-        $state.go('discountDetails', {'did' : discountId});
+        $state.go('app.discountDetails', {'did' : discountId});
     }
     
     function editDiscount(discountId) {
-        $state.go('editDiscount', {'did': discountId});
+        $state.go('app.editDiscount', {'did': discountId});
     }
 
     main();

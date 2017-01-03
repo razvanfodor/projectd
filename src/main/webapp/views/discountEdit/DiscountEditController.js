@@ -52,9 +52,9 @@ app.controller('DiscountEditController', function ($scope, $state, $stateParams,
             $scope.discount.tags.push(tag.text);
         });
         if (isEditMode()) {
-            WebService.put('discount/update', $scope.discount)
+            WebService.put('discount/update', getData($scope.discount))
                     .then(function () {
-                        $state.go('viewMyDiscounts');
+                        $state.go('app.viewMyDiscounts');
                     })
                     .catch(function (data) {
                         $scope.errorMessage = data.message;
@@ -62,12 +62,26 @@ app.controller('DiscountEditController', function ($scope, $state, $stateParams,
         } else {
             WebService.post('discount/saveNew', $scope.discount)
                     .then(function () {
-                        $state.go('viewMyDiscounts');
+                        $state.go('app.viewMyDiscounts');
                     })
                     .catch(function (data) {
                         $scope.errorMessage = data.message;
                     });
         }
+    }
+
+    function getData(discount){
+        var out = {};
+        out.id = discount.id;
+        out.expiryDate = discount.expiryDate;
+        out.price = discount.price;
+        out.discountName = discount.discountName;
+        out.code = discount.code;
+        out.tags = discount.tags;
+        out.singleSell = discount.singleSell;
+        out.website = discount.website;
+        out.description = discount.description;
+        return out;
     }
 
     function isEditMode() {

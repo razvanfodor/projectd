@@ -10,7 +10,7 @@ app.controller('NavbarController', function ($scope, $sessionStorage, $state) {
     
     function logout(){
         delete $sessionStorage.authToken;
-        $state.go('home');
+        $state.go('app.home');
     }
     
     main();    

@@ -24,7 +24,7 @@ app.controller("UserRegistrationController", function ($scope, $state, WebServic
         }
         WebService.post('user/register', $scope.user, {})
                 .then(function () {
-                    $state.go('login');
+                    $state.go('app.login');
                 })
                 .catch(function (data) {
                     $scope.errorMessage = data.message;

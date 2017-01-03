@@ -33,7 +33,7 @@ app.controller("UserProfileController", function ($scope, $state, WebService) {
         };
         WebService.put("user/profile", requestObj)
                 .then(function (){
-                    $state.go('home');   
+                    $state.go('app.home');   
                 })
                 .catch(function (data){
                     $scope.errorMessage = data.message;

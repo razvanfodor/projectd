@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="app">
-
+<html lang="en"  data-ng-app="app">
     <head>
-
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-
         <title>ProjectD</title>
-
+        <!-- Style -->
+        <link href="css/calypso/style.css" rel="stylesheet">
+        <!-- Responsive -->
+        <link href="css/calypso/responsive.css" rel="stylesheet">
+        <!-- Choose Layout -->
+        <link href="css/calypso/layout-semiboxed.css" rel="stylesheet">
+        <!-- Choose Skin -->
+        <link href="css/calypso/skin-red.css" rel="stylesheet">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="img/calypso/favicon.ico">
+        <!-- IE -->
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+              <script src="js/calypso/html5shiv.js"></script>
+              <script src="js/calypso/respond.min.js"></script>	   
+            <![endif]-->
+        <!--[if lte IE 8]>
+                <link href="css/calypso/ie8.css" rel="stylesheet">
+                 <![endif]-->
+        
         <!-- Bootstrap Core CSS -->
         <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="vendor/ng-tags-input/ng-tags-input.min.css">  
-        
+
         <!--smart table css-->
         <link rel="stylesheet" href="vendor/ng-tags-input/ng-tags-input.min.css">  
-
-        <!-- Theme CSS -->
-        <link href="css/clean-blog.css" rel="stylesheet">
 
         <link rel="stylesheet" href="css/specific.css">
 
@@ -28,116 +41,118 @@
         <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
     </head>
+    <body class="off">
+        <!-- /.wrapbox start-->
+        <div class="wrapbox">
+            <navbar></navbar>
 
-    <body>
+            <!-- /nav end-->
+            <div ui-view="header"></div>
 
-    <navbar></navbar>
-    <!-- Page Header -->
-    <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>ProjectD</h1>
-                        <hr class="small">
-                        <span class="subheading">Welcome to ProjectD</span>
-                        <search></search>
+            <!-- /.wrapsemibox start-->
+            <div class="wrapsemibox">
+                <div class="semiboxshadow text-center">
+                    <img src="img/calypso/shp.png" class="img-responsive" alt="">
+                </div>
+                
+                <div ui-view="content"></div>
+            </div>
+            <!-- /.wrapsemibox end-->
+            <!-- BEGIN FOOTER
+    ================================================== -->
+            <section>
+                <div class="footer">
+                    <div class="container animated fadeInUpNow notransition">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h1 class="footerbrand">ProjectD</h1>
+                                <p>
+                                    The best project ever.
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <div ui-view="content"></div>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted">Copyright &copy; ProjectD 2016</p>
+                <p id="back-top">
+                    <a href="#top"><span></span></a>
+                </p>
+                <div class="copyright">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="pull-left">
+                                    &copy; Copyright 2014 WowThemes.net
+                                </p>
+                            </div>
+                            <div class="col-md-8">
+                                <ul class="footermenu pull-right">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Work</a></li>
+                                    <li><a href="#">Pages</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>      
-    </footer>
+            </section>
+            <!-- /footer section end-->
+        </div>
+        <!-- /.wrapbox ends-->
+        <!-- SCRIPTS, placed at the end of the document so the pages load faster
+        ================================================== -->
 
-    <!--Dependencies-->
-    <script src="vendor/jquery/dist/jquery.min.js"></script>
-    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="vendor/angular/angular.min.js"></script>
-    <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="vendor/ngstorage/ngStorage.min.js"></script>
-    <script src="vendor/ng-tags-input/ng-tags-input.min.js"></script>
-    <script src="vendor/angular-smart-table/dist/smart-table.min.js"></script>
+        
+        <!--Dependencies-->
+        <script src="vendor/jquery/dist/jquery.js"></script>
+        <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="vendor/angular/angular.min.js"></script>
+        <script src="vendor/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="vendor/ngstorage/ngStorage.min.js"></script>
+        <script src="vendor/ng-tags-input/ng-tags-input.min.js"></script>
+        <script src="vendor/angular-smart-table/dist/smart-table.min.js"></script>
 
-    <!--App-->
-    <script src="js/app.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="js/services.js"></script>
+        <!--App-->
+        <script src="js/app.js"></script>
+        <script src="js/filters.js"></script>
+        <script src="js/routes.js"></script>
+        <script src="js/services.js"></script>
 
-    <!--Controllers-->
-    <script src="views/registerUser/registerUserController.js"></script>
-    <script src="views/login/loginController.js"></script>
-    <script src="components/navbar/NavbarController.js"></script>
-    <script src="views/welcome/WelcomeController.js"></script>
-    <script src="views/discountEdit/DiscountEditController.js"></script>
-    <script src="views/userDiscounts/UserDiscountsController.js"></script>
-    <script src="components/search/SearchController.js"></script>
-    <script src="views/displaySearchResults/DisplaySearchResultsController.js"></script>
-    <script src="views/discountDetails/DiscountDetailsController.js"></script>
-    <script src="views/userDetails/UserDetailsController.js"></script>
-    <script src="components/user/UserController.js"></script>
-    <script src="views/userProfile/UserProfileController.js"></script>
-    
-    <!--Services-->
-    <script src="utils/WebService.js"></script>
-    
-    <!--Directives-->
-    <script src="components/navbar/NavbarDirective.js"></script>
-    <script src="components/search/SearchDirective.js"></script>
-    <script src="components/user/UserDirective.js"></script>
-    
-    <!-- Theme JavaScript -->
-    <script src="js/clean-blog.min.js"></script>
+        <!--Controllers-->
+        <script src="views/registerUser/registerUserController.js"></script>
+        <script src="views/login/loginController.js"></script>
+        <script src="components/navbar/NavbarController.js"></script>
+        <script src="views/welcome/WelcomeController.js"></script>
+        <script src="views/discountEdit/DiscountEditController.js"></script>
+        <script src="views/userDiscounts/UserDiscountsController.js"></script>
+        <script src="components/search/SearchController.js"></script>
+        <script src="views/displaySearchResults/DisplaySearchResultsController.js"></script>
+        <script src="views/discountDetails/DiscountDetailsController.js"></script>
+        <script src="views/userDetails/UserDetailsController.js"></script>
+        <script src="components/user/UserController.js"></script>
+        <script src="views/userProfile/UserProfileController.js"></script>
 
-</body>
+        <!--Services-->
+        <script src="utils/WebService.js"></script>
 
+        <!--Directives-->
+        <script src="components/navbar/NavbarDirective.js"></script>
+        <script src="components/search/SearchDirective.js"></script>
+        <script src="components/user/UserDirective.js"></script>
+        
+        <!--calypso-->
+        <script src="js/calypso/plugins.js"></script>
+        <script src="js/calypso/common.js"></script>
+        <!--end calypso-->
+
+    </body>
 </html>

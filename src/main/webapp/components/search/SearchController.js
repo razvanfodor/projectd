@@ -10,7 +10,7 @@ app.controller('SearchController', function ($scope, $state, $sessionStorage) {
     }
 
     function search() {
-        $state.go('displaySearchResults', {searchTerm : $scope.searchTerm});
+        $state.go('app.displaySearchResults', {searchTerm : $scope.searchTerm});
     }
 
     main();

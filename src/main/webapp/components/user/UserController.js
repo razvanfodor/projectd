@@ -8,7 +8,7 @@ app.controller('UserController', function ($scope, $state) {
     }
 
     function goToUserDetails(userId) {
-        $state.go('userDetails', {uid : userId});
+        $state.go('app.userDetails', {uid : userId});
     }
 
     main();

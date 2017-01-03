@@ -18,7 +18,7 @@ app.controller("LoginController", function ($scope, $state, $sessionStorage, Web
                 WebService.post('authentication/login', $scope.user)
                         .then(function(data){
                             $sessionStorage.authToken = data.authToken;
-                            $state.go('home');
+                            $state.go('app.home');
                         });
             }
         };

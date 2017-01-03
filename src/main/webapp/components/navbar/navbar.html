@@ -1,42 +1,30 @@
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                Menu <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand" ui-sref="home">Welcome To Project D</a>
+<nav class="navbar navbar-fixed-top wowmenu" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand logo-nav" ui-sref="home"><img src="img/calypso/logo.png" alt="logo"></a>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a ui-sref="home">Home</a>
-                </li>
-                <li>
-                    <a ng-if="!sessionStorage.authToken" ui-sref="login">Log in</a>
-                </li>
-                <li>
-                    <a ng-if="sessionStorage.authToken" ui-sref="viewMyDiscounts">My Discounts</a>
-                </li>
-                <li>
-                    <a ng-if="sessionStorage.authToken" ui-sref="newDiscount">Add New Discount</a>
-                </li>
-                <li>
-                    <a ng-if="sessionStorage.authToken" ui-sref="userProfile">Profile</a>
-                </li>
-                <li>
-                    <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
-                </li>
-                <li>
-                    <a ng-if="!sessionStorage.authToken" ui-sref="registerUser">Sign up</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
+        <ul id="nav" class="nav navbar-nav pull-right">
+            <li class="active">
+                <a ui-sref="app.home">Home</a>
+            </li>
+            <li>
+                <a ng-if="!sessionStorage.authToken" ui-sref="app.login">Log in</a>
+            </li>
+            <li>
+                <a ng-if="sessionStorage.authToken" ui-sref="app.viewMyDiscounts">My Discounts</a>
+            </li>
+            <li>
+                <a ng-if="sessionStorage.authToken" ui-sref="app.newDiscount">Add New Discount</a>
+            </li>
+            <li>
+                <a ng-if="sessionStorage.authToken" ui-sref="app.userProfile">Profile</a>
+            </li>
+            <li>
+                <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
+            </li>
+            <li>
+                <a ng-if="!sessionStorage.authToken" ui-sref="app.registerUser">Sign up</a>
+            </li>
+        </ul>		
+    </div>	
 </nav>

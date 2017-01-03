@@ -4,91 +4,105 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
-                .state('home', {
+                .state('app', {
                     url: '/',
+                    views : {
+                        'header' : {
+                            templateUrl : 'views/app/appHeader.html'
+                        },
+                        'content' : {
+                            templateUrl : 'views/app/appContent.html'
+                        }
+                    }
+                })
+                .state('app.home', {
+                    url: 'home',
                     views: {
-                        'content': {
-                            templateUrl: 'views/welcome/welcome.html',
+                        'header@' : {
+                            templateUrl: 'views/welcome/welcomeHeader.html'
+                        },
+                        'content@': {
+                            templateUrl: 'views/welcome/welcomeContent.html',
                             controller: 'WelcomeController'
                         }
                     }
                 })
-                .state('registerUser', {
-                    url: '/registerUser',
+                .state('app.registerUser', {
+                    url: 'registerUser',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/registerUser/registerUser.html',
                             controller: 'UserRegistrationController'
                         }
                     }
                 })
-                .state('login', {
-                    url: '/login',
+                .state('app.login', {
+                    url: 'login',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/login/login.html',
                             controller: 'LoginController'
                         }
                     }
                 })
-                .state('newDiscount', {
-                    url: '/newDiscount',
+                .state('app.newDiscount', {
+                    url: 'newDiscount',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/discountEdit/DiscountEdit.html',
                             controller: 'DiscountEditController'
                         }
                     }
                 })
-                .state('editDiscount', {
-                    url : '/editDiscount/:did',
+                .state('app.editDiscount', {
+                    url : 'editDiscount/:did',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/discountEdit/DiscountEdit.html',
                             controller: 'DiscountEditController'
                         }
                     }
                 })
-                .state('viewMyDiscounts', {
-                    url: '/viewMyDiscounts',
+                .state('app.viewMyDiscounts', {
+                    url: 'viewMyDiscounts',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/userDiscounts/UserDiscounts.html',
                             controller: 'UserDiscountsController'
                         }
                     }
                 })
-                .state('displaySearchResults', {
-                    url: '/displaySearchResults/:searchTerm',
+                .state('app.displaySearchResults', {
+                    url: 'displaySearchResults/:searchTerm',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/displaySearchResults/DisplaySearchResults.html',
                             controller: 'DisplaySearchResultsController'
                         }
                     }
                 })
-                .state('discountDetails', {
-                    url: '/discountDetails/:did',
+                .state('app.discountDetails', {
+                    url: 'discountDetails/:did',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/discountDetails/DiscountDetails.html',
                             controller: 'DiscountDetailsController'
                         }
                     }
                 })
-                .state('userDetails', {
-                    url: '/userDetails/:uid',
+                .state('app.userDetails', {
+                    url: 'userDetails/:uid',
                     views: {
-                        'content': {
+                        'content@': {
                             templateUrl: 'views/userDetails/UserDetails.html',
                             controller: 'UserDetailsController'
                         }
                     }
                 })
-                .state('userProfile', {
-                    url: '/userProfile',
+                .state('app.userProfile', {
+                    url: 'userProfile',
                     views: {
-                       'content': {
+                       'content@': {
                             templateUrl: 'views/userProfile/UserProfile.html',
                             controller: 'UserProfileController'
                         }

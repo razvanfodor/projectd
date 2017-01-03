@@ -14,7 +14,7 @@ app.controller("DisplaySearchResultsController", function ($scope, $stateParams,
         }
         
         function buy(discountId){
-            $state.go('discountDetails', {did : discountId});
+            $state.go('app.discountDetails', {did : discountId});
         }
         
         function searchDiscounts(tableState){

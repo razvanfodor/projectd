@@ -4,25 +4,25 @@
             <a class="navbar-brand logo-nav" ui-sref="home"><img src="img/calypso/logo.png" alt="logo"></a>
         </div>
         <ul id="nav" class="nav navbar-nav pull-right">
-            <li class="active">
+            <li ng-class="{'active' : state.current.name == 'app.home'}">
                 <a ui-sref="app.home">Home</a>
             </li>
-            <li>
+            <li ng-class="{'active' : state.current.name == 'app.login'}">
                 <a ng-if="!sessionStorage.authToken" ui-sref="app.login">Log in</a>
             </li>
-            <li>
+            <li ng-class="{'active' : state.current.name == 'app.viewMyDiscounts'}">
                 <a ng-if="sessionStorage.authToken" ui-sref="app.viewMyDiscounts">My Discounts</a>
             </li>
-            <li>
+            <li ng-class="{'active' : state.current.name == 'app.newDiscount'}">
                 <a ng-if="sessionStorage.authToken" ui-sref="app.newDiscount">Add New Discount</a>
             </li>
-            <li>
+            <li ng-class="{'active' : state.current.name == 'app.userProfile'}">
                 <a ng-if="sessionStorage.authToken" ui-sref="app.userProfile">Profile</a>
             </li>
             <li>
                 <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
             </li>
-            <li>
+            <li  ng-class="{'active' : state.current.name == 'app.registerUser'}">
                 <a ng-if="!sessionStorage.authToken" ui-sref="app.registerUser">Sign up</a>
             </li>
         </ul>		

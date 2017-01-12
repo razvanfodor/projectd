@@ -6,6 +6,7 @@ app.controller('NavbarController', function ($scope, $sessionStorage, $state) {
     function initScope() {
       $scope.sessionStorage = $sessionStorage;
       $scope.logout = logout;
+      $scope.state = $state;
     }
     
     function logout(){

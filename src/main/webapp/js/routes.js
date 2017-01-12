@@ -11,7 +11,8 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                             templateUrl : 'views/app/appHeader.html'
                         },
                         'content' : {
-                            templateUrl : 'views/app/appContent.html'
+                            templateUrl : 'views/app/appContent.html',
+                            controller: 'AppController'
                         }
                     }
                 })

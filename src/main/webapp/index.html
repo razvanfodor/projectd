@@ -11,7 +11,7 @@
         <!-- Responsive -->
         <link href="css/calypso/responsive.css" rel="stylesheet">
         <!-- Choose Layout -->
-        <link href="css/calypso/layout-semiboxed.css" rel="stylesheet">
+        <link href="css/calypso/layout-wide.css" rel="stylesheet">
         <!-- Choose Skin -->
         <link href="css/calypso/skin-red.css" rel="stylesheet">
         <!-- Favicon -->
@@ -45,10 +45,11 @@
     <body class="off">
         <!-- /.wrapbox start-->
         <div class="wrapbox">
+            <nav class="toparea">
             <navbar></navbar>
+            </nav>
 
-            <!-- /nav end-->
-            <div ui-view="header"></div>
+            <section ui-view="header"></section>
 
             <!-- /.wrapsemibox start-->
             <div class="wrapsemibox">
@@ -59,52 +60,6 @@
                 <div ui-view="content"></div>
             </div>
             <!-- /.wrapsemibox end-->
-            <!-- BEGIN FOOTER
-    ================================================== -->
-            <section>
-                <div class="footer">
-                    <div class="container animated fadeInUpNow notransition">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h1 class="footerbrand">ProjectD</h1>
-                                <p>
-                                    The best project ever.
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-                            </div>
-                            <div class="col-md-3">
-                            </div>
-                            <div class="col-md-3">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p id="back-top">
-                    <a href="#top"><span></span></a>
-                </p>
-                <div class="copyright">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p class="pull-left">
-                                    &copy; Copyright 2014 WowThemes.net
-                                </p>
-                            </div>
-                            <div class="col-md-8">
-                                <ul class="footermenu pull-right">
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">Work</a></li>
-                                    <li><a href="#">Pages</a></li>
-                                    <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- /footer section end-->
         </div>
         <!-- /.wrapbox ends-->
         <!-- SCRIPTS, placed at the end of the document so the pages load faster

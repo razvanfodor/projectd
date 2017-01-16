@@ -1,7 +1,8 @@
-<nav class="navbar navbar-fixed-top wowmenu" role="navigation">
+<nav class="navbar navbar-fixed-top wowmenu tiny" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand logo-nav" ui-sref="home"><img src="img/calypso/logo.png" alt="logo"></a>
+            <span><a class="navbar-brand logo-nav" ui-sref="home"><img src="img/calypso/logo.png" alt="logo"></a></span>
+            
         </div>
         <ul id="nav" class="nav navbar-nav pull-right">
             <li ng-class="{'active' : state.current.name == 'app.home'}">
@@ -25,6 +26,6 @@
             <li  ng-class="{'active' : state.current.name == 'app.registerUser'}">
                 <a ng-if="!sessionStorage.authToken" ui-sref="app.registerUser">Sign up</a>
             </li>
-        </ul>		
+        </ul>	
     </div>	
 </nav>

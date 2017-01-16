@@ -19,3 +19,42 @@
 input.ng-invalid{
     background: #FCF8E3;
 }
+
+.navbar {
+    padding-top: 0px;
+    margin-bottom: 0px;
+    border: none;
+}
+.navbar-nav>li>a {
+    margin-top: 0px;
+}
+.toparea{
+    margin-bottom: 0px;
+}   
+
+.wowmenu {
+    top:0;
+    background:rgba(255,255,255,0.97) !important;
+    padding-top:10px;
+    padding-bottom:0px;
+    max-height: 54px;
+}
+.wowmenu .navbar-nav>li>a {
+    line-height:24px;
+    margin-top:-26px;
+    padding-top:30px;
+    margin-bottom:-20px;
+    padding-bottom:16px;
+}
+.navbar-brand img {
+    max-width:100%;
+}
+.wowmenu .navbar-brand img {
+    max-width:85%;
+}
+.wowmenu .navbar-brand img {
+    transition:all 0.7s ease;
+    -webkit-transition:all 0.7s ease;
+    -moz-transition:all 0.7s ease;
+    -o-transition:all 0.7s ease;
+}

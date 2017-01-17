@@ -1,3 +1,6 @@
 <form ng-submit="search()">
-    <input type="text" ng-model="searchTerm" placeholder="Search a discount" class="form-control">
+    <div class="input-append">
+        <input type="text" ng-model="searchTerm" placeholder="Search a discount" class="input-large">
+        <button class="btn btn-default" type="button" ng-click="search()"><span class="icon-search"></span></button>
+    </div>
 </form>

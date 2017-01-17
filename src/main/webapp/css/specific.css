@@ -20,6 +20,10 @@ input.ng-invalid{
     background: #FCF8E3;
 }
 
+search input{
+    color: black;
+}
+
 .navbar {
     padding-top: 0px;
     margin-bottom: 0px;

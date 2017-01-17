@@ -24,6 +24,7 @@ input.ng-invalid{
     padding-top: 0px;
     margin-bottom: 0px;
     border: none;
+    cursor: pointer;
 }
 .navbar-nav>li>a {
     margin-top: 0px;

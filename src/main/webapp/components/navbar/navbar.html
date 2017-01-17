@@ -1,31 +1,45 @@
 <nav class="navbar navbar-fixed-top wowmenu tiny" role="navigation">
     <div class="container">
-        <div class="navbar-header">
-            <span><a class="navbar-brand logo-nav" ui-sref="home"><img src="img/calypso/logo.png" alt="logo"></a></span>
-            
+        <div class="row">
+            <div class="col-md-3">
+                <span  class="navbar-header"><a class="navbar-brand logo-nav" ui-sref="home"><img src="img/calypso/logo.png" alt="logo"></a></span>
+            </div>
+            <div class="col-md-4">
+                <search ng-if="state.current.name != 'app.home'"></search>
+            </div>
+            <div class="col-md-5">
+                <ul id="nav" class="nav navbar-nav pull-right">
+                    <li ng-class="{'active' : state.current.name == 'app.home'}">
+                        <a ui-sref="app.home">Home</a>
+                    </li>
+                    <li ng-class="{'active' : state.current.name == 'app.login'}">
+                        <a ng-if="!sessionStorage.authToken" ui-sref="app.login">Log in</a>
+                    </li>
+                    <li ng-if="sessionStorage.authToken"
+                        class="dropdown" 
+                        ng-class="{'active' : state.current.name == 'app.viewMyDiscounts' || state.current.name == 'app.newDiscount'}">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Discounts <i class="icon-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a  ui-sref="app.viewMyDiscounts">My Discounts</a>
+                            </li>
+                            <li>
+                                <a ui-sref="app.newDiscount">Add New Discount</a>
+                            </li>
+                        </ul>   
+                    </li>
+                    
+                    <li ng-class="{'active' : state.current.name == 'app.userProfile'}">
+                        <a ng-if="sessionStorage.authToken" ui-sref="app.userProfile">Profile</a>
+                    </li>
+                    <li>
+                        <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
+                    </li>
+                    <li  ng-class="{'active' : state.current.name == 'app.registerUser'}">
+                        <a ng-if="!sessionStorage.authToken" ui-sref="app.registerUser">Sign up</a>
+                    </li>
+                </ul>
         </div>
-        <ul id="nav" class="nav navbar-nav pull-right">
-            <li ng-class="{'active' : state.current.name == 'app.home'}">
-                <a ui-sref="app.home">Home</a>
-            </li>
-            <li ng-class="{'active' : state.current.name == 'app.login'}">
-                <a ng-if="!sessionStorage.authToken" ui-sref="app.login">Log in</a>
-            </li>
-            <li ng-class="{'active' : state.current.name == 'app.viewMyDiscounts'}">
-                <a ng-if="sessionStorage.authToken" ui-sref="app.viewMyDiscounts">My Discounts</a>
-            </li>
-            <li ng-class="{'active' : state.current.name == 'app.newDiscount'}">
-                <a ng-if="sessionStorage.authToken" ui-sref="app.newDiscount">Add New Discount</a>
-            </li>
-            <li ng-class="{'active' : state.current.name == 'app.userProfile'}">
-                <a ng-if="sessionStorage.authToken" ui-sref="app.userProfile">Profile</a>
-            </li>
-            <li>
-                <a ng-if="sessionStorage.authToken" ng-click="logout()">Log out</a>
-            </li>
-            <li  ng-class="{'active' : state.current.name == 'app.registerUser'}">
-                <a ng-if="!sessionStorage.authToken" ui-sref="app.registerUser">Sign up</a>
-            </li>
-        </ul>	
+        </div>
     </div>	
 </nav>

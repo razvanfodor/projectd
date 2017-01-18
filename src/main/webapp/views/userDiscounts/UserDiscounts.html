@@ -1,54 +1,43 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-5">
-        <div class="panel panel-default">
-            <div class="panel-heading">My discounts</div>
-            <div class="panel-body">
-                <table st-table="discounts" st-safe-src="myDiscounts" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th st-sort="creationDate" st-sort-default="reverse" class="sorting-header">Date</th>
-                            <th st-sort="discountName" class="sorting-header">Discount Name</th>
-                            <th st-sort="website" class="sorting-header">Store Web Site</th>
-                            <th st-sort="price" class="sorting-header">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="row in discounts" ng-click="editDiscount(row.id)">
-                            <td>{{row.creationDate | date}}</td>
-                            <td>{{row.discountName}}</td>
-                            <td>{{row.website}}</td>
-                            <td>{{row.price}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+        <div class="boxportfolio1">
+            <h1 class="smalltitle">
+                <span>My discounts</span>
+            </h1>
+            <div>
+                <div  ng-repeat="row in myDiscounts">
+                    <div class="box effect2">
+                        <h4  ng-click="editDiscount(row.id)">{{row.discountName}}</h4>
+                        <p>{{row.description}}</p>
+                        <p><a target="_blank" href="{{row.website}}">{{row.website}}</a></p>
+                        <p class="text-center">
+                            <span class="pull-left" title="Creation date"><i class="icon-time"></i> {{row.creationDate| date}}</span>
+                            <i title="Price" class="icon-money"> {{row.price}}</i> *
+                            <i class="icon-unlock" title="Times sold"> {{row.sellTimes}}</i> 
+                            <span class="pull-right" title="Expiry date"><i class="icon-remove-sign"></i> {{row.expiryDate| date}}</span>
+                        </p>
+                    </div>
+                    <br>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-5">
-        <div class="panel panel-default">
-            <div class="panel-heading">Purchased discounts</div>
-            <div class="panel-body">
-                <table st-table="purchases" st-safe-src="boughtDiscounts" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th st-sort="creationDate" st-sort-default="reverse" class="sorting-header">Date</th>
-                            <th st-sort="discountName" class="sorting-header">Discount Name</th>
-                            <th st-sort="website" class="sorting-header">Store Web Site</th>
-                            <th st-sort="price" class="sorting-header">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="row in purchases" ng-click="goToDetails(row.id)">
-                            <td>{{row.creationDate | date}}</td>
-                            <td>{{row.discountName}}</td>
-                            <td>{{row.website}}</td>
-                            <td>{{row.price}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+        <div class="boxportfolio1">
+            <h1 class="smalltitle">
+                <span>Purchased discounts</span>
+            </h1>
+            <div>
+                <div class="box effect2" ng-repeat="row in boughtDiscounts">
+                    <h4  ng-click="goToDetails(row.id)">{{row.discountName}}</h4>
+                    <p>{{row.description}}</p>
+                    <p><a href="{{row.website}}">{{row.website}}</a></p>
+                    <p>
+                        <span class="pull-left" title="Creation date"><i class="icon-time"></i> {{row.creationDate| date}}</span>
+                        <span class="pull-right" title="Expiry date"><i class="icon-remove-sign"></i> {{row.expiryDate| date}}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

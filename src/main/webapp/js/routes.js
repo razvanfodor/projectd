@@ -49,6 +49,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.newDiscount', {
                     url: 'newDiscount',
                     views: {
+                        'header@': {
+                            templateUrl: 'views/discountEdit/DiscountEditHeader.html',
+                            controller: 'DiscountEditHeaderController'
+                        },
                         'content@': {
                             templateUrl: 'views/discountEdit/DiscountEdit.html',
                             controller: 'DiscountEditController'
@@ -58,6 +62,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.editDiscount', {
                     url : 'editDiscount/:did',
                     views: {
+                        'header@': {
+                            templateUrl: 'views/discountEdit/DiscountEditHeader.html',
+                            controller: 'DiscountEditHeaderController'
+                        },
                         'content@': {
                             templateUrl: 'views/discountEdit/DiscountEdit.html',
                             controller: 'DiscountEditController'
@@ -67,6 +75,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.viewMyDiscounts', {
                     url: 'viewMyDiscounts',
                     views: {
+                        'header@': {
+                            templateUrl: 'views/userDiscounts/UserDiscountsHeader.html',
+                        },
                         'content@': {
                             templateUrl: 'views/userDiscounts/UserDiscounts.html',
                             controller: 'UserDiscountsController'

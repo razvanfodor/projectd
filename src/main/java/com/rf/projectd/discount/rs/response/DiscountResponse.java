@@ -32,7 +32,8 @@ public class DiscountResponse {
     private List<String> tags;
     private Date expiryDate;
     private Boolean singleSell = false;
-    
+    private Long sellTimes = 0L;
+
     
     public DiscountResponse(DiscountEntity discount, User user) {
        this.id = discount.getId().toString();
@@ -141,5 +142,13 @@ public class DiscountResponse {
 
     public void setSingleSell(Boolean singleSell) {
         this.singleSell = singleSell;
+    }
+    
+    public Long getSellTimes() {
+        return sellTimes;
+    }
+
+    public void setSellTimes(Long sellTimes) {
+        this.sellTimes = sellTimes;
     }
 }

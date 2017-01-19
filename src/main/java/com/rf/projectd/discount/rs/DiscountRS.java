@@ -253,6 +253,7 @@ public class DiscountRS {
                 for (Buyer buyer : discount.getBuyers()) {
                     if (loggedInUser.getId().equals(buyer.getUserId())) {
                         discountResponse.setBuyDate(buyer.getDate());
+                        discountResponse.setCode(discount.getCode());
                     }
                 }
             }

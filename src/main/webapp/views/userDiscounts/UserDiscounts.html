@@ -28,16 +28,18 @@
             <h1 class="smalltitle">
                 <span>Purchased discounts</span>
             </h1>
-            <div>
-                <div class="box effect2" ng-repeat="row in boughtDiscounts">
-                    <h4  ng-click="goToDetails(row.id)">{{row.discountName}}</h4>
+            <div  ng-repeat="row in boughtDiscounts">
+                <div class="box effect2">
+                    <h4>{{row.discountName}}</h4>
                     <p>{{row.description}}</p>
+                    <h5><strong class="color" title="The CODE"><i class="icon-unlock"></i> {{row.code}}</strong></h5>
                     <p><a href="{{row.website}}">{{row.website}}</a></p>
                     <p>
-                        <span class="pull-left" title="Creation date"><i class="icon-time"></i> {{row.creationDate| date}}</span>
+                        <span class="pull-left" title="Buy date"><i class="icon-time"></i> {{row.buyDate| date}}</span>
                         <span class="pull-right" title="Expiry date"><i class="icon-remove-sign"></i> {{row.expiryDate| date}}</span>
                     </p>
                 </div>
+                <br>
             </div>
         </div>
     </div>

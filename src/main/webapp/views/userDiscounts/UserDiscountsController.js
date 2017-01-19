@@ -11,10 +11,16 @@ app.controller("UserDiscountsController", function ($scope, $state, WebService) 
         $scope.boughtDiscounts = [];
         WebService.get("discount/getMy")
                 .then(function (data) {
+                    data.sort(function(a, b){
+                        return b.creationDate - a.creationDate;
+                    });
                     $scope.myDiscounts = data;
                 });
         WebService.get("discount/getBought")
                 .then(function (data) {
+                    data.sort(function (a, b) {
+                        return b.buyDate - a.buyDate;
+                    });
                     $scope.boughtDiscounts = data;
                 });
         $scope.goToDetails = goToDetails;

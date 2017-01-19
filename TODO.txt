@@ -1,7 +1,9 @@
 what to do about resale?
 should not be able to add empty user
+forgot passord
+use case: not logged in user searches and then wants to buy... give login possibility and then redirect to buy the same item
+long result lists display
 
-user ratings
 discount images?
 protect against javascript injection;
 menu dropdown on hover

@@ -6,12 +6,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
         $stateProvider
                 .state('app', {
                     url: '/',
-                    views : {
-                        'header' : {
-                            templateUrl : 'views/app/appHeader.html'
+                    views: {
+                        'header': {
+                            templateUrl: 'views/app/appHeader.html'
                         },
-                        'content' : {
-                            templateUrl : 'views/app/appContent.html',
+                        'content': {
+                            templateUrl: 'views/app/appContent.html',
                             controller: 'AppController'
                         }
                     }
@@ -19,7 +19,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.home', {
                     url: 'home',
                     views: {
-                        'header@' : {
+                        'header@': {
                             templateUrl: 'views/welcome/welcomeHeader.html'
                         },
                         'content@': {
@@ -60,7 +60,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                     }
                 })
                 .state('app.editDiscount', {
-                    url : 'editDiscount/:did',
+                    url: 'editDiscount/:did',
                     views: {
                         'header@': {
                             templateUrl: 'views/discountEdit/DiscountEditHeader.html',
@@ -87,7 +87,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.displaySearchResults', {
                     url: 'displaySearchResults/:searchTerm',
                     views: {
-                        'header@':{
+                        'header@': {
                             templateUrl: 'views/displaySearchResults/DisplaySearchResultsHeader.html'
                         },
                         'content@': {
@@ -117,7 +117,10 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.userProfile', {
                     url: 'userProfile',
                     views: {
-                       'content@': {
+                        'header@': {
+                            templateUrl: 'views/userProfile/UserProfileHeader.html',
+                        },
+                        'content@': {
                             templateUrl: 'views/userProfile/UserProfile.html',
                             controller: 'UserProfileController'
                         }

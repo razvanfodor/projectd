@@ -31,6 +31,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.registerUser', {
                     url: 'registerUser',
                     views: {
+                        'header@': {
+                            templateUrl: 'views/registerUser/RegisterUserHeader.html',
+                        },
                         'content@': {
                             templateUrl: 'views/registerUser/registerUser.html',
                             controller: 'UserRegistrationController'
@@ -40,6 +43,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.login', {
                     url: 'login',
                     views: {
+                        'header@': {
+                            templateUrl: 'views/login/LoginHeader.html',
+                        },
                         'content@': {
                             templateUrl: 'views/login/login.html',
                             controller: 'LoginController'
@@ -108,6 +114,9 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
                 .state('app.userDetails', {
                     url: 'userDetails/:uid',
                     views: {
+                        'header@': {
+                            templateUrl: 'views/userDetails/UserDetailsHeader.html'
+                        },
                         'content@': {
                             templateUrl: 'views/userDetails/UserDetails.html',
                             controller: 'UserDetailsController'

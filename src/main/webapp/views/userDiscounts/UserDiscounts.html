@@ -2,9 +2,20 @@
     <div class="col-md-1"></div>
     <div class="col-md-5">
         <div class="boxportfolio1">
-            <h1 class="smalltitle">
-                <span>My discounts</span>
-            </h1>
+            <div class="row">
+                <div class="col-md-11">
+                    <h1 class="smalltitle">
+                        <span>
+                            My discounts 
+                        </span>
+                    </h1>
+                </div>
+                <div class="col-md-1 title-button">
+                    <div class="pull-right">
+                        <button class="btn btn-default" type="button" ng-click="newDiscount()"><span class="icon-plus"></span></button>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div  ng-repeat="row in myDiscounts">
                     <div class="box effect2">

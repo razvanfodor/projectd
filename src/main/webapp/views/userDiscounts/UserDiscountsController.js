@@ -25,6 +25,7 @@ app.controller("UserDiscountsController", function ($scope, $state, WebService) 
                 });
         $scope.goToDetails = goToDetails;
         $scope.editDiscount = editDiscount;
+        $scope.newDiscount = newDiscount;
     }
     
     function goToDetails(discountId) {
@@ -33,6 +34,10 @@ app.controller("UserDiscountsController", function ($scope, $state, WebService) 
     
     function editDiscount(discountId) {
         $state.go('app.editDiscount', {'did': discountId});
+    }
+    
+    function newDiscount(){
+        $state.go('app.newDiscount');
     }
 
     main();

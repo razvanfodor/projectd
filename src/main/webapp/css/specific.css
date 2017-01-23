@@ -77,3 +77,16 @@ search input{
 .search-input {
     width: 85%;
 }
+
+.title-button {
+    padding:1px;
+    padding-left:0 !important;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+.title-button  button {
+        top: 18px;
+        position: relative;
+        display: inline-block;
+    }

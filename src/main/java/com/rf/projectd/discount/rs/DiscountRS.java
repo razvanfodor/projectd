@@ -258,7 +258,7 @@ public class DiscountRS {
                     }
                 }
             }
-            if (loggedInUser != null && !creatorUser.equals(loggedInUser)){
+            if (loggedInUser != null && creatorUser.equals(loggedInUser)){
                 discountResponse.setSellTimes(Long.valueOf(discount.getBuyers().size()));
             }
 

@@ -7,21 +7,17 @@
                 <tbody>
                     <tr ng-repeat="row in discounts">
                         <td>
-                            <div>
-                                <div>
-                                    <div class="box effect2"  ng-click="buy(row.id)">
-                                        <h4  ng-click="buy(row.id)">{{row.discountName}}</h4>
-                                        <p>{{row.description}}</p>
-                                        <p><a target="_blank" href="{{row.website}}">{{row.website}}</a></p>
-                                        <p class="text-center">
-                                            <span class="pull-left" title="Creation date"><i class="icon-time"></i> {{row.creationDate| date}}</span>
-                                            <i title="Price" class="icon-money"> {{row.price}}</i>
-                                            <span class="pull-right" title="Expiry date"><i class="icon-remove-sign"></i> {{row.expiryDate| date}}</span>
-                                        </p>
-                                    </div>
-                                    <br>
-                                </div>
+                            <div class="box effect2"  ng-click="buy(row.id)">
+                                <h4  ng-click="buy(row.id)">{{row.discountName}}</h4>
+                                <p>{{row.description}}</p>
+                                <p><a target="_blank" href="{{row.website}}">{{row.website}}</a></p>
+                                <p class="text-center">
+                                    <span class="pull-left" title="Creation date"><i class="icon-time"></i> {{row.creationDate| date}}</span>
+                                    <i title="Price" class="icon-money"> {{row.price}}</i>
+                                    <span class="pull-right" title="Expiry date"><i class="icon-remove-sign"></i> {{row.expiryDate| date}}</span>
+                                </p>
                             </div>
+                            <br>
                         </td>
 
                     </tr>

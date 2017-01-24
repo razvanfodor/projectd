@@ -1,124 +1,104 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-5">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div ng-if="user.comments.length > 0" class="row">
-                    <div  class="col-sm-6">
-                        <h3 class="panel-title">
-                            Ratings for {{user.userName}}<br><br>
-                            Total:                
-                            <span uib-rating ng-model="user.ratingPoints" max="maxRatingPoints"
-                                  read-only="true" aria-labelledby="default-rating"></span>
-                        </h3>
-                    </div>
-                    <div class="col-sm-6">
-                        <button type="button" class="btn pull-right" data-toggle="modal" data-target="#addCommentModal">New rating!</button>
-                    </div>
+        <div class="boxportfolio">
+            <div class="row title-button-row">
+                <div class="col-md-11">
+                    <h1 class="smalltitle">  
+                        <span> {{user.userName}} </span>
+                        <span ng-if="user.comments.length > 0" uib-rating class="title-rating" ng-model="user.ratingPoints" max="maxRatingPoints" read-only="true" aria-labelledby="default-rating"></span>
+                    </h1>
                 </div>
-                <div  ng-if="user.comments.length == 0" class="row">
-                    <div class="col-sm-6">
-                        <h3 class="panel-title">
-
-                            There are no ratings for {{user.userName}}
-                        </h3>
-                    </div>
-                    <div class="col-sm-6">
-                        <button type="button" class="btn pull-right" data-toggle="modal" data-target="#addCommentModal">New rating!</button>
+                <div class="col-md-1 title-button">
+                    <div class="pull-right">
+                        <button class="btn btn-default" type="button"  data-toggle="modal" data-target="#addCommentModal"><span class="icon-plus"></span></button>
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div ng-repeat="comment in user.comments">
-                    <div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4><span uib-rating ng-model="comment.rating" max="maxRatingPoints"
-                                          read-only="true" aria-labelledby="default-rating"></span>
-                                    {{comment.summary}}
-                                </h4>
-                            </div>
+            <span  ng-if="user.comments.length == 0">There are no comments. Be the first to add one!</span>
+            
+            <div class="panel" ng-repeat="comment in user.comments">
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4><span uib-rating ng-model="comment.rating" max="maxRatingPoints"
+                                      read-only="true" aria-labelledby="default-rating"></span>
+                                {{comment.summary}}
+                            </h4>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">From <user name="comment.userName" id="comment.userId"/> on {{comment.date| date}}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">{{comment.comment}}</div>
-                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">From <user name="comment.userName" id="comment.userId"/> on {{comment.date| date}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">{{comment.comment}}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-5">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Discounts from {{user.userName}}</h3>
+        <div class="boxportfolio">
+            <h1 class="smalltitle">
+                <span>Discounts from {{user.userName}}</span>
+            </h1>
+            <div>
+                <div  ng-repeat="row in discounts">
+                    <div class="box effect2"  ng-click="buy(row.id)">
+                        <h4  ng-click="buy(row.id)">{{row.discountName}}</h4>
+                        <p>{{row.description}}</p>
+                        <p><a target="_blank" href="{{row.website}}">{{row.website}}</a></p>
+                        <p class="text-center">
+                            <span class="pull-left" title="Creation date"><i class="icon-time"></i> {{row.creationDate| date}}</span>
+                            <i title="Price" class="icon-money"> {{row.price}}</i>
+                            <span class="pull-right" title="Expiry date"><i class="icon-remove-sign"></i> {{row.expiryDate| date}}</span>
+                        </p>
+                    </div>
+                    <br>
+                    <br>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <table st-table="data" st-safe-src="discounts" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th st-sort="creationDate" st-sort-default="reverse" class="sorting-header">Date</th>
-                                <th st-sort="discountName" class="sorting-header">Discount Name</th>
-                                <th st-sort="website" class="sorting-header">Store Web Site</th>
-                                <th st-sort="price" class="sorting-header">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="row in data" ng-click="buy(row.id)">
-                                <td>{{row.creationDate | date}}</td>
-                                <td>{{row.discountName}}</td>
-                                <td>{{row.website}}</td>
-                                <td>{{row.price}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+    <!--new comment dialog-->
+    <div id="addCommentModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Add new comment for {{user.userName}}.</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="rating"  class="col-sm-2 control-label">Rating: </label>
+                            <div class="col-sm-10">
+                                <span id="rating"  uib-rating ng-model="newComment.rating" max="maxRatingPoints"
+                                      read-only="false" aria-labelledby="default-rating"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="summary" class="col-sm-2 control-label">Summary: </label>
+                            <div class="col-sm-10">
+                                <input id="summary" type="text" ng-model="newComment.summary" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="text" class="col-sm-2 control-label">Content: </label>
+                            <div class="col-sm-10">
+                                <textarea id="text" rows="10" type="text" ng-model="newComment.text"  class="form-control"> </textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-ng-click="addComment()" data-dismiss="modal">Add</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-1"></div>
-</div>
-
-<!--new comment dialog-->
-<div id="addCommentModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Add new comment for {{user.userName}}.</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="rating"  class="col-sm-2 control-label">Rating: </label>
-                        <div class="col-sm-10">
-                            <span id="rating"  uib-rating ng-model="newComment.rating" max="maxRatingPoints"
-                                  read-only="false" aria-labelledby="default-rating"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="summary" class="col-sm-2 control-label">Summary: </label>
-                        <div class="col-sm-10">
-                            <input id="summary" type="text" ng-model="newComment.summary" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="text" class="col-sm-2 control-label">Content: </label>
-                        <div class="col-sm-10">
-                            <textarea id="text" rows="10" type="text" ng-model="newComment.text"  class="form-control"> </textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-ng-click="addComment()" data-dismiss="modal">Add</button>
-            </div>
-        </div>
-    </div>
-</div>
 

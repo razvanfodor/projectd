@@ -142,6 +142,7 @@ public class DiscountRS {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBoughtByUser() {
         final List<DiscountEntity> discounts = discountAccess.getBoughtBy(getUserId());
+        discounts.sort((a, b) -> b.getCreationDate().compareTo(a.getCreationDate()));
         return responseService.ok(transformToDiscountResponses(discounts));
     }
 
@@ -268,6 +269,7 @@ public class DiscountRS {
 
     private Response getCreatedBy(ObjectId userId) {
         final List<DiscountEntity> discounts = discountAccess.getCreatedBy(userId);
+        discounts.sort((a, b) -> b.getCreationDate().compareTo(a.getCreationDate()));
         return responseService.ok(transformToDiscountResponses(discounts));
     }
 

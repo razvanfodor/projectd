@@ -89,4 +89,12 @@ search input{
         top: 18px;
         position: relative;
         display: inline-block;
-    }
+}
+
+.title-rating span{
+    position: static;
+}
+
+.title-button-row div{
+    padding-left: 0px;
+}

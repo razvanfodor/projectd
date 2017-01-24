@@ -15,7 +15,6 @@ import com.rf.projectd.user.UserBE;
 import com.rf.projectd.user.UserContext;
 import com.rf.projectd.user.entity.User;
 import com.rf.projectd.user.rs.response.UserCommentResponse;
-import com.rf.projectd.user.rs.response.UserPersistenceResponse;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -122,6 +121,7 @@ public class UserRS {
             details.getComments()
                     .add(new UserCommentResponse(userComment, userName));
         });
+        details.getComments().sort((a, b) -> b.getDate().compareTo(a.getDate()));
 
         return details;
     }

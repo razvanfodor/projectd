@@ -2,3 +2,4 @@
 node_modules/
 target/
 nb-configuration.xml
+nbproject/

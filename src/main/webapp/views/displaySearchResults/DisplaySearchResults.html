@@ -1,10 +1,18 @@
 `<div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <div class="boxportfolio1">
+        <div class="boxportfolio1 text-center">
             <table st-table="discounts" st-pipe="searchDiscounts">
-
                 <tbody>
+                    <tr ng-if="discounts.length == 0">
+
+                        <td>
+                            <div class="box effect2">
+                                <h3>Sorry... No discounts were found for your search.</h3>
+                            </div>
+                        </td>
+
+                    </tr>      
                     <tr ng-repeat="row in discounts">
                         <td>
                             <div class="box effect2"  ng-click="buy(row.id)">

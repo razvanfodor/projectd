@@ -98,3 +98,7 @@ search input{
 .title-button-row div{
     padding-left: 0px;
 }
+
+.results-table {
+    width: 100%;
+}

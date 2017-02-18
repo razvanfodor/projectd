@@ -8,8 +8,7 @@ docker network create pd_network
 
 #start mongodb
 docker stop mongo
-docker rm mongo
-docker run -d --name=mongo --network=pd_network mongo
+docker run -d --name=mongo --network=pd_network mongo || docker start mongo
 
 #start projectD server container
 docker stop projectd

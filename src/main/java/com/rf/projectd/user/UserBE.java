@@ -14,6 +14,7 @@ import com.rf.projectd.user.rs.response.UserPersistenceResponse;
 import java.util.Date;
 import javax.inject.Inject;
 import org.bson.types.ObjectId;
+import com.rf.projectd.common.PasswordEncryptor;
 
 /**
  *
@@ -30,10 +31,14 @@ public class UserBE {
 
     @Inject
     private UserContext userContext;
+    
+    @Inject
+    private PasswordEncryptor passwordEncryptor;
 
     public void createNewUser(User user) {
         validateProfile(user.getFirstName(), user.getLastName(), user.getEmail());
         validatePassword(user.getPassword());
+        encryptPassword(user);
         
         final User foundUser = userAccess.getUserByName(user.getUserName());
 
@@ -97,5 +102,9 @@ public class UserBE {
         if (password == null || password.length() < 2){
             throw new ProfileException("The password is too short.");
         }
+    }
+
+    private void encryptPassword(User user) {
+        user.setPassword(passwordEncryptor.encrypt(user.getPassword()));
     }
 }

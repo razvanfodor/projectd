@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 import javax.inject.Inject;
 import javax.security.auth.login.LoginException;
+import com.rf.projectd.common.PasswordEncryptor;
 
 /**
  * 
@@ -26,9 +27,12 @@ public class AuthenticationBE {
     @Inject
     private AuthenticationAccess authAccess;
     
+    @Inject
+    private PasswordEncryptor passwordVerifier;
+    
     public String login(String userName, String password) throws LoginException{
         final User user = userAccess.getUserByName(userName);
-        if (user != null && user.getPassword().equals(password)){
+        if (user != null && passwordVerifier.checkPassword(password, user.getPassword())){
             AuthenticationSession session = authAccess.getByUserName(userName);
             if (session == null){
                 session = new AuthenticationSession();

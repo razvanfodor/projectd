@@ -30,7 +30,7 @@ public class RestRequestFilter implements ContainerRequestFilter {
     
     @Override
     public void filter( ContainerRequestContext requestCtx ) throws IOException {
-        String path = requestCtx.getUriInfo().getPath();
+        String path = getRequestPath(requestCtx);
         log.info( "Filtering request path: " + path );
 
         // IMPORTANT!!! First, Acknowledge any pre-flight test from browsers for this case before validating the headers (CORS stuff)
@@ -46,6 +46,14 @@ public class RestRequestFilter implements ContainerRequestFilter {
                 requestCtx.abortWith(Response.status( Response.Status.UNAUTHORIZED ).build());
             }
         }
+    }
+
+    private String getRequestPath(ContainerRequestContext requestCtx) {
+        String path = requestCtx.getUriInfo().getPath();
+        if (path.startsWith("/")){
+            path = path.substring(1);
+        }
+        return path;
     }
 
     private static boolean isAuthenticationRequired(String path) {

@@ -41,7 +41,7 @@ public class DbConnectionProducer {
 
     @PostConstruct
     public void init() {
-        String mongoIpAddress = "docker";
+        String mongoIpAddress = "localhost";
         Integer mongoPort = 27017;
         mongo = new MongoClient(mongoIpAddress, mongoPort);
         db = mongo.getDatabase("projectD");

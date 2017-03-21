@@ -6,34 +6,47 @@
 package com.rf.projectd.common;
 
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import com.rf.projectd.common.config.Prop;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
- *
  * @author raz
  */
-@Singleton
+@ApplicationScoped
 public class DbConnectionProducer {
+    private static final String MORPHIA_MAP_PACKAGE = "com.rf.projectd.db.entity";
 
     private MongoClient mongo;
-    private MongoDatabase db;
     private Datastore datastore;
+    
+    @Inject
+    @Prop("DATABASE_PORT")
+    private Integer mongoPort;
 
+    @Inject
+    @Prop("DATABASE_HOST")
+    private String databaseHostAddress;
+    
+    @Inject
+    @Prop("DATASTORE")
+    private String datastoreName;
+    
     @Produces
     public MongoClient getConnection() {
         return mongo;
     }
 
-    @Produces
-    public MongoDatabase getDb() {
-        return db;
-    }
-    
     @Produces
     public Datastore getDatastore() {
         return datastore;
@@ -41,10 +54,7 @@ public class DbConnectionProducer {
 
     @PostConstruct
     public void init() {
-        String mongoIpAddress = "localhost";
-        Integer mongoPort = 27017;
-        mongo = new MongoClient(mongoIpAddress, mongoPort);
-        db = mongo.getDatabase("projectD");
+        mongo = new MongoClient(databaseHostAddress, mongoPort);
 
         initMorphia();
     }
@@ -52,9 +62,9 @@ public class DbConnectionProducer {
     private void initMorphia() {
         final Morphia morphia = new Morphia();
 
-        morphia.mapPackage("com.rf.projectd.db.entity");
+        morphia.mapPackage(MORPHIA_MAP_PACKAGE);
 
-        datastore = morphia.createDatastore(mongo, "projectD");
+        datastore = morphia.createDatastore(mongo, datastoreName);
         datastore.ensureIndexes();
     }
 }

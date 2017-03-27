@@ -6,13 +6,7 @@
 package com.rf.projectd.common;
 
 import com.mongodb.MongoClient;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import org.mongodb.morphia.Datastore;
@@ -25,11 +19,12 @@ import javax.enterprise.context.ApplicationScoped;
  */
 @ApplicationScoped
 public class DbConnectionProducer {
+
     private static final String MORPHIA_MAP_PACKAGE = "com.rf.projectd.db.entity";
 
     private MongoClient mongo;
     private Datastore datastore;
-    
+
     @Inject
     @Prop("DATABASE_PORT")
     private Integer mongoPort;
@@ -37,11 +32,11 @@ public class DbConnectionProducer {
     @Inject
     @Prop("DATABASE_HOST")
     private String databaseHostAddress;
-    
+
     @Inject
     @Prop("DATASTORE")
     private String datastoreName;
-    
+
     @Produces
     public MongoClient getConnection() {
         return mongo;

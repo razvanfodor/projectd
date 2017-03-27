@@ -5,19 +5,19 @@
  */
 package com.rf.projectd.common.config;
 
+import com.rf.projectd.common.log.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
-import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Inject;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author raz
@@ -27,6 +27,10 @@ public class Configuration {
 
     private static final String GLOBAL_PROPERTIES_FILE = "global.properties";
     private static final String LOCAL_PROPERTIES_FILE = "/.projectd/local.properties";
+
+    @Inject
+    @Log
+    private Logger logger;
 
     private Properties properties;
 
@@ -61,12 +65,13 @@ public class Configuration {
     private void readGlobalPropertiesFile() {
         try (InputStream input = getClass().getClassLoader().getResourceAsStream(GLOBAL_PROPERTIES_FILE)) {
             if (input == null) {
-                Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, "Properties file not found!");
+                logger.error("Can't read global properties file.");
             }
             properties = new Properties();
             properties.load(input);
+            logger.info("Global properties file loaded.");
         } catch (IOException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Can't read global properties file.", ex);
         }
     }
 
@@ -75,10 +80,11 @@ public class Configuration {
         File f = new File(home + LOCAL_PROPERTIES_FILE);
         try (FileInputStream fin = new FileInputStream(f)) {
             properties.load(fin);
+            logger.info("Local properties file loaded");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, null, ex);
+            logger.info("Can't read local properties file. File not found.", ex);
         } catch (IOException ex) {
-            Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, null, ex);
+            logger.info("Can't read local properties file", ex);
         }
     }
 
